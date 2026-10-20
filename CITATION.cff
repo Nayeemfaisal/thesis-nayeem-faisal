@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use this thesis catalogue, cite the repository and the original datasets used in your analysis."
+title: "Open Battery Dataset Catalogue for Bachelor's Thesis Research"
+type: dataset
+authors:
+  - family-names: "Faisal"
+    given-names: "Nayeem"
+repository-code: "https://github.com/Nayeemfaisal/battery-thesis-dataset-catalogue"
+abstract: "A thesis-oriented catalogue of open battery datasets and associated research resources."
+keywords:
+  - lithium-ion batteries
+  - battery datasets
+  - state of health
+  - degradation modelling
+  - battery monitoring

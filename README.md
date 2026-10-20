@@ -1,4 +1,31 @@
-This repository curates open-source datasets and resources in battery monitoring and modelling. It aims to help researchers and engineers quickly find datasets for state estimation, degradation analysis, and thermal–electrochemical modelling, and to support reproducible benchmarking across studies.
+# Open Battery Dataset Catalogue
+
+**Bachelor's thesis research repository by Nayeem Faisal**
+
+This repository curates open-source datasets and resources for battery monitoring and modelling. It is being refined by **Nayeem Faisal** as a research artefact for his bachelor's thesis, with an emphasis on dataset discovery, transparent selection, and reproducible comparison across battery state estimation, degradation analysis, safety, and thermal–electrochemical modelling.
+
+> **Project status:** active thesis work. Catalogue entries point to externally maintained datasets; the data itself is not redistributed here.
+
+## Research purpose
+
+The catalogue supports a structured review of public battery datasets and helps identify suitable evidence for thesis experiments. Its goals are to:
+
+- make relevant battery datasets easier to discover;
+- record the associated publications and authoritative download locations;
+- support reproducible dataset selection for modelling and benchmarking; and
+- document limitations, licensing constraints, and potential sources of bias.
+
+See [RESEARCH_PROTOCOL.md](RESEARCH_PROTOCOL.md) for the curation and verification procedure and [THESIS_WORKSPACE.md](THESIS_WORKSPACE.md) for the planned thesis workflow.
+
+## Authorship and provenance
+
+**Thesis author and repository maintainer:** Nayeem Faisal
+
+**Purpose:** Bachelor's thesis research
+
+This work is based on the public [Iontech repository](https://github.com/shiyunliu-battery/Iontech) maintained by Shiyun Liu and contributors. The imported Git history is retained to preserve provenance. Subsequent thesis-specific organisation, review notes, analysis, and documentation are maintained by Nayeem Faisal. Inclusion in this catalogue does not transfer ownership of a dataset or publication.
+
+## Responsible use
 
 We gratefully acknowledge the original publishers and contributors of these datasets. Please cite the original sources and follow the licence terms when using the data.
 
@@ -557,4 +584,6 @@ Links to external sites
 - [EPA](https://www.epa.gov/vehicle-and-fuel-emissions-testing/dynamometer-drive-schedules)
 - [Sandia.gov](https://www.sandia.gov/ess/tools-resources/rd-data-repository)
 
+---
 
+Maintained by **Nayeem Faisal** for bachelor's thesis research. Last structural review: October 2026.
