@@ -29,17 +29,17 @@ export default function Home() {
   return (
     <main>
       <header className="topbar">
-        <a className="brand" href="#top" aria-label="Thesis Wiki home"><span className="brandMark">NF</span><span>Thesis Wiki</span></a>
+        <a className="brand" href="#top" aria-label="Thesis Wiki home"><span className="brandMark">NF</span><span>EV Intelligence / Thesis Wiki</span></a>
         <nav aria-label="Primary navigation"><a href="#catalogue">Catalogue</a><a href="#method">Method</a><a href="#author">Author</a></nav>
         <a className="repoLink" href="https://github.com/Nayeemfaisal/thesis-nayeem-faisal" target="_blank" rel="noreferrer">View repository ↗</a>
       </header>
       <section className="hero" id="top">
         <div className="heroCopy">
-          <p className="eyebrow"><span /> Nayeem Faisal · Bachelor’s thesis research</p>
-          <h1>A living knowledge base for <em>battery intelligence.</em></h1>
-          <p className="lede">An LLM-ready research wiki mapping open battery datasets across health estimation, ageing, safety, imaging and electrochemical modelling.</p>
+          <p className="eyebrow"><span /> Battery intelligence · Research platform 2026</p>
+          <h1>Engineering the <em>electric future.</em></h1>
+          <p className="lede">An LLM-ready intelligence layer for open battery data—built to accelerate research in EV health, ageing, safety and next-generation energy systems.</p>
           <div className="heroActions"><a className="primary" href="#catalogue">Explore datasets</a><a className="secondary" href="#method">Read the protocol</a></div>
-          <dl className="metrics"><div><dt>67</dt><dd>curated datasets</dd></div><div><dt>8</dt><dd>research themes</dd></div><div><dt>Open</dt><dd>source catalogue</dd></div></dl>
+          <dl className="metrics"><div><dt>67</dt><dd>curated datasets</dd></div><div><dt>EV</dt><dd>industry relevance</dd></div><div><dt>AI</dt><dd>ready knowledge</dd></div></dl>
         </div>
         <aside className="heroPanel" aria-label="Featured research note">
           <div className="panelTop"><span>RESEARCH NOTE / 001</span><span className="status">Active</span></div>
@@ -50,6 +50,20 @@ export default function Home() {
       </section>
       <section className="themes" aria-label="Research themes">
         {themes.map(([title, copy, number]) => <article key={number}><span>{number}</span><h2>{title}</h2><p>{copy}</p></article>)}
+      </section>
+      <section className="industry" id="industry">
+        <div className="industryIntro">
+          <p className="eyebrow"><span /> EV-scale research potential</p>
+          <h2>Built around the questions global EV leaders face.</h2>
+          <p>The catalogue brings together public evidence that can support exploratory research for major EV manufacturers and battery teams—from early degradation signals to fleet-aware health models.</p>
+        </div>
+        <div className="industryGrid">
+          <article><b>01</b><span>Battery health</span><p>Benchmark SOC, SOH and remaining-life methods across chemistries and duty cycles.</p></article>
+          <article><b>02</b><span>Fast charging</span><p>Study efficiency, thermal response and degradation under demanding charge protocols.</p></article>
+          <article><b>03</b><span>Fleet intelligence</span><p>Bridge laboratory experiments with field measurements and realistic driving profiles.</p></article>
+          <article><b>04</b><span>Safety systems</span><p>Explore fault signatures, abuse testing and thermal-runaway evidence.</p></article>
+        </div>
+        <p className="industryNote"><strong>Research-use statement:</strong> These third-party datasets may be relevant to large EV companies, including global vehicle and battery manufacturers, after independent validation for licensing, quality, representativeness, safety and the intended engineering use. This project is independent and is not affiliated with or endorsed by Tesla or any vehicle manufacturer.</p>
       </section>
       <section className="catalogue" id="catalogue">
         <div className="sectionHead"><div><p className="eyebrow"><span /> Knowledge catalogue</p><h2>Dataset index</h2></div><p>Search a representative selection from the complete 67-entry catalogue. Every record links back to its authoritative source.</p></div>
@@ -68,7 +82,7 @@ export default function Home() {
         <img src="/nayeem-faisal.png" alt="Nayeem Faisal" />
         <div><p className="eyebrow"><span /> About the researcher</p><h2>Nayeem Faisal</h2><p className="role">Bachelor’s thesis researcher · Battery data & intelligent systems</p><p>This wiki is the public research companion to my bachelor’s thesis. I am building a transparent map of open battery evidence and a reproducible path from dataset discovery to trustworthy modelling.</p><div className="authorLinks"><a href="https://github.com/Nayeemfaisal" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://github.com/Nayeemfaisal/thesis-nayeem-faisal" target="_blank" rel="noreferrer">Research repository ↗</a></div></div>
       </section>
-      <footer><div className="brand"><span className="brandMark">NF</span><span>Thesis Wiki</span></div><p>Open battery research, carefully mapped.</p><span>© 2026 Nayeem Faisal</span></footer>
+      <footer><div className="brand"><span className="brandMark">NF</span><span>EV Intelligence / Thesis Wiki</span></div><p>Independent academic research. No manufacturer affiliation or endorsement.</p><span>© 2026 Nayeem Faisal</span></footer>
     </main>
   );
 }
