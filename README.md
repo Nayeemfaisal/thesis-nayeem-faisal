@@ -4,7 +4,7 @@
 
 ## Thesis Wiki
 
-Explore the interactive research companion: **[Battery Thesis Wiki](https://nayeem-battery-thesis-wiki.earlyelm32.chatgpt.site)**
+Explore the interactive research companion: **[Battery Thesis Wiki](https://nayeemfaisal.com)**
 
 The wiki provides a searchable dataset index, research themes, the curation method, and an author profile. Its source is maintained in [`site/`](site/).
 

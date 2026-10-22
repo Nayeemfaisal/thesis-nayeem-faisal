@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://nayeem-battery-thesis-wiki.earlyelm32.chatgpt.site"),
+  metadataBase: new URL("https://nayeemfaisal.com"),
   title: "EV Battery Intelligence — Nayeem Faisal",
   description: "A futuristic, LLM-ready thesis wiki mapping open battery datasets with research potential for global EV and battery teams.",
   openGraph: {

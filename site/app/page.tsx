@@ -30,7 +30,7 @@ export default function Home() {
     <main>
       <header className="topbar">
         <a className="brand" href="#top" aria-label="Thesis Wiki home"><span className="brandMark">NF</span><span>EV Intelligence / Thesis Wiki</span></a>
-        <nav aria-label="Primary navigation"><a href="#catalogue">Catalogue</a><a href="#method">Method</a><a href="#author">Author</a></nav>
+        <nav aria-label="Primary navigation"><a href="#catalogue">Catalogue</a><a href="#method">Method</a><a href="#profile">Profile</a><a href="#author">Author</a></nav>
         <a className="repoLink" href="https://github.com/Nayeemfaisal/thesis-nayeem-faisal" target="_blank" rel="noreferrer">View repository ↗</a>
       </header>
       <section className="hero" id="top">
@@ -78,9 +78,22 @@ export default function Home() {
         <div><p className="eyebrow light"><span /> Research method</p><h2>Evidence before experiments.</h2><p>Each candidate moves through a documented review process before entering a thesis experiment.</p></div>
         <ol><li><b>01</b><span><strong>Discover</strong>Find stable, authoritative sources.</span></li><li><b>02</b><span><strong>Verify</strong>Record licences, versions and bias.</span></li><li><b>03</b><span><strong>Compare</strong>Assess relevance and data quality.</span></li><li><b>04</b><span><strong>Reproduce</strong>Track splits, seeds and checksums.</span></li></ol>
       </section>
+      <section className="profile" id="profile">
+        <div className="profileIntro">
+          <p className="eyebrow"><span /> Beyond the thesis</p>
+          <h2>Research, experience and product thinking.</h2>
+          <p>Selected links connecting this battery research with my wider academic experience and practical software concepts.</p>
+        </div>
+        <div className="profileGrid">
+          <a href="https://de.linkedin.com/in/nayeem-faisal-721619296" target="_blank" rel="noreferrer"><b>01 / PROFESSIONAL PROFILE</b><h3>LinkedIn</h3><p>My academic path, professional experience, research interests and current work at THA.</p><span>View profile ↗</span></a>
+          <a href="https://www.tha.de/" target="_blank" rel="noreferrer"><b>02 / INTERNSHIP</b><h3>Technische Hochschule Augsburg</h3><p>Applied research and professional experience within THA’s practice-oriented academic environment.</p><span>Visit THA ↗</span></a>
+          <a href="https://chatgpt.com/share/6a5f2e44-e6b0-83ed-937e-c76fecbf4df6" target="_blank" rel="noreferrer"><b>03 / APP CONCEPT</b><h3>THA Q&amp;A Hub</h3><p>A student-support application concept linking university questions, professor-reviewed answers and a WhatsApp workflow.</p><span>Explore the concept ↗</span></a>
+        </div>
+        <p className="profileNote">The THA Q&amp;A Hub is an independent prototype concept and is not presented as an official THA service.</p>
+      </section>
       <section className="author" id="author">
         <img src="/nayeem-faisal.png" alt="Nayeem Faisal" />
-        <div><p className="eyebrow"><span /> Researcher & thesis author</p><h2>Nayeem Faisal</h2><p className="role">Bachelor’s thesis researcher · Battery data & intelligent systems</p><p>All thesis research, catalogue curation, dataset review, comparative analysis and wiki development presented here are conducted by Nayeem Faisal. The underlying third-party datasets and published findings remain the work of their cited authors and institutions.</p><div className="authorLinks"><a href="https://github.com/Nayeemfaisal" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://github.com/Nayeemfaisal/thesis-nayeem-faisal" target="_blank" rel="noreferrer">Research repository ↗</a></div></div>
+        <div><p className="eyebrow"><span /> Researcher & thesis author</p><h2>Nayeem Faisal</h2><p className="role">Bachelor’s thesis researcher · Battery data & intelligent systems</p><p>All thesis research, catalogue curation, dataset review, comparative analysis and wiki development presented here are conducted by Nayeem Faisal. The underlying third-party datasets and published findings remain the work of their cited authors and institutions.</p><div className="authorLinks"><a href="https://de.linkedin.com/in/nayeem-faisal-721619296" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://github.com/Nayeemfaisal" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://github.com/Nayeemfaisal/thesis-nayeem-faisal" target="_blank" rel="noreferrer">Research repository ↗</a></div></div>
       </section>
       <footer><div className="brand"><span className="brandMark">NF</span><span>EV Intelligence / Thesis Wiki</span></div><p>Thesis research and curation by Nayeem Faisal · Independent of manufacturers.</p><span>© 2026 Nayeem Faisal</span></footer>
     </main>
