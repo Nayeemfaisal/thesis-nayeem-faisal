@@ -35,14 +35,14 @@ export default function Home() {
       </header>
       <section className="hero" id="top">
         <div className="heroCopy">
-          <p className="eyebrow"><span /> Battery intelligence · Research platform 2026</p>
+          <p className="eyebrow"><span /> Thesis research & curation by Nayeem Faisal</p>
           <h1>Engineering the <em>electric future.</em></h1>
           <p className="lede">An LLM-ready intelligence layer for open battery data—built to accelerate research in EV health, ageing, safety and next-generation energy systems.</p>
           <div className="heroActions"><a className="primary" href="#catalogue">Explore datasets</a><a className="secondary" href="#method">Read the protocol</a></div>
           <dl className="metrics"><div><dt>67</dt><dd>curated datasets</dd></div><div><dt>EV</dt><dd>industry relevance</dd></div><div><dt>AI</dt><dd>ready knowledge</dd></div></dl>
         </div>
         <aside className="heroPanel" aria-label="Featured research note">
-          <div className="panelTop"><span>RESEARCH NOTE / 001</span><span className="status">Active</span></div>
+          <div className="panelTop"><span>NAYEEM FAISAL / RESEARCH NOTE 001</span><span className="status">Active</span></div>
           <p className="quote">“Which public datasets are robust enough for reproducible battery health modelling?”</p>
           <div className="signal"><span>Core dimensions</span><div><i style={{width:"88%"}}/><i style={{width:"72%"}}/><i style={{width:"94%"}}/></div></div>
           <ul><li>Documentation quality</li><li>Licence compatibility</li><li>Leakage-safe evaluation</li></ul>
@@ -80,9 +80,9 @@ export default function Home() {
       </section>
       <section className="author" id="author">
         <img src="/nayeem-faisal.png" alt="Nayeem Faisal" />
-        <div><p className="eyebrow"><span /> About the researcher</p><h2>Nayeem Faisal</h2><p className="role">Bachelor’s thesis researcher · Battery data & intelligent systems</p><p>This wiki is the public research companion to my bachelor’s thesis. I am building a transparent map of open battery evidence and a reproducible path from dataset discovery to trustworthy modelling.</p><div className="authorLinks"><a href="https://github.com/Nayeemfaisal" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://github.com/Nayeemfaisal/thesis-nayeem-faisal" target="_blank" rel="noreferrer">Research repository ↗</a></div></div>
+        <div><p className="eyebrow"><span /> Researcher & thesis author</p><h2>Nayeem Faisal</h2><p className="role">Bachelor’s thesis researcher · Battery data & intelligent systems</p><p>All thesis research, catalogue curation, dataset review, comparative analysis and wiki development presented here are conducted by Nayeem Faisal. The underlying third-party datasets and published findings remain the work of their cited authors and institutions.</p><div className="authorLinks"><a href="https://github.com/Nayeemfaisal" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://github.com/Nayeemfaisal/thesis-nayeem-faisal" target="_blank" rel="noreferrer">Research repository ↗</a></div></div>
       </section>
-      <footer><div className="brand"><span className="brandMark">NF</span><span>EV Intelligence / Thesis Wiki</span></div><p>Independent academic research. No manufacturer affiliation or endorsement.</p><span>© 2026 Nayeem Faisal</span></footer>
+      <footer><div className="brand"><span className="brandMark">NF</span><span>EV Intelligence / Thesis Wiki</span></div><p>Thesis research and curation by Nayeem Faisal · Independent of manufacturers.</p><span>© 2026 Nayeem Faisal</span></footer>
     </main>
   );
 }
