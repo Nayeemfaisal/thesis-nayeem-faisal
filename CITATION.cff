@@ -5,7 +5,7 @@ type: dataset
 authors:
   - family-names: "Faisal"
     given-names: "Nayeem"
-repository-code: "https://github.com/Nayeemfaisal/battery-thesis-dataset-catalogue"
+repository-code: "https://github.com/Nayeemfaisal/thesis-nayeem-faisal"
 abstract: "A thesis-oriented catalogue of open battery datasets and associated research resources."
 keywords:
   - lithium-ion batteries
