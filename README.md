@@ -2,6 +2,12 @@
 
 **Bachelor's thesis research repository by Nayeem Faisal**
 
+## Thesis Wiki
+
+Explore the interactive research companion: **[Battery Thesis Wiki](https://nayeem-battery-thesis-wiki.earlyelm32.chatgpt.site)**
+
+The wiki provides a searchable dataset index, research themes, the curation method, and an author profile. Its source is maintained in [`site/`](site/).
+
 This repository curates open-source datasets and resources for battery monitoring and modelling. It is being refined by **Nayeem Faisal** as a research artefact for his bachelor's thesis, with an emphasis on dataset discovery, transparent selection, and reproducible comparison across battery state estimation, degradation analysis, safety, and thermal–electrochemical modelling.
 
 > **Project status:** active thesis work. Catalogue entries point to externally maintained datasets; the data itself is not redistributed here.
