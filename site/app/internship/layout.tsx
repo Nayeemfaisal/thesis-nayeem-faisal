@@ -1,0 +1,3 @@
+import type { Metadata } from "next";
+export const metadata: Metadata = { title: "THA Applied Experience — Nayeem Faisal", description: "A structured view of Nayeem Faisal’s applied experience at Technische Hochschule Augsburg.", openGraph: { title: "THA Applied Experience — Nayeem Faisal", description: "Learning, contribution and applied systems practice at THA.", url: "/internship", images: [] }, twitter: { card: "summary", title: "THA Applied Experience — Nayeem Faisal", description: "Learning, contribution and applied systems practice at THA.", images: [] } };
+export default function InternshipLayout({ children }: { children: React.ReactNode }) { return children; }

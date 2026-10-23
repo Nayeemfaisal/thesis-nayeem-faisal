@@ -12,8 +12,8 @@ const education = [
 
 const work = [
   { number: "01", type: "WORKING SOFTWARE", title: "THA Q&A Hub", copy: "An interactive student-support prototype with verified knowledge search, a transparent review queue and human approval.", href: "/tha-hub", link: "Open live software →", accent: "cyan" },
-  { number: "02", type: "APPLIED EXPERIENCE", title: "THA Internship", copy: "Practical experience in the applied, research-oriented environment of the Technical University of Applied Sciences Augsburg.", href: "https://www.tha.de/", link: "Visit THA ↗", accent: "violet" },
-  { number: "03", type: "BACHELOR’S THESIS", title: "EV Battery Intelligence", copy: "A reproducible research catalogue mapping 67 open datasets for battery health, ageing, safety and data-driven modelling.", href: "https://github.com/Nayeemfaisal/thesis-nayeem-faisal", link: "View thesis repository ↗", accent: "red" },
+  { number: "02", type: "APPLIED EXPERIENCE", title: "THA Internship", copy: "Practical experience in the applied, research-oriented environment of the Technical University of Applied Sciences Augsburg.", href: "/internship", link: "Explore experience →", accent: "violet" },
+  { number: "03", type: "BACHELOR’S THESIS", title: "EV Battery Intelligence", copy: "A reproducible research catalogue mapping 67 open datasets for battery health, ageing, safety and data-driven modelling.", href: "/thesis", link: "Open thesis wiki →", accent: "red" },
 ];
 
 export default function Home() {
