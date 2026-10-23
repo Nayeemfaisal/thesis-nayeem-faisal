@@ -32,7 +32,7 @@ export default function Home() {
       <div className="portfolioOrbit" aria-hidden="true"><i/><i/><i/><b/></div>
       <div className="solarSystem" aria-hidden="true"><div className="sun"/><div className="planetOrbit orbitOne"><i/></div><div className="planetOrbit orbitTwo"><i/></div><div className="planetOrbit orbitThree"><i/></div><div className="planetOrbit orbitFour"><i/></div></div>
       <header className="portfolioNav">
-        <a className="portfolioBrand" href="#home"><img src="/nayeem-faisal-portrait.png" alt=""/><span>NAYEEM FAISAL</span></a>
+        <a className="portfolioBrand" href="#home"><img src="/nayeem-faisal-portrait-hd.png" alt=""/><span>NAYEEM FAISAL</span></a>
         <nav aria-label="Primary navigation"><a href="#education">Education</a><a href="#work">Current work</a><a href="#profile">Profile</a></nav>
         <a className="portfolioContact" href="https://de.linkedin.com/in/nayeem-faisal-721619296" target="_blank" rel="noreferrer">LinkedIn ↗</a>
       </header>
@@ -47,7 +47,7 @@ export default function Home() {
         </div>
         <div className="portraitStage">
           <div className="portraitRings"><i/><i/><i/></div>
-          <img src="/nayeem-faisal-portrait.png" alt="Nayeem Faisal"/>
+          <img src="/nayeem-faisal-portrait-hd.png" alt="Nayeem Faisal"/>
           <div className="portraitTelemetry"><span>PROFILE / NF–001</span><b>ACTIVE</b><small>Munich · Augsburg · Bangladesh</small></div>
         </div>
       </section>
@@ -68,11 +68,11 @@ export default function Home() {
       </section>
 
       <section className="portfolioProfile" id="profile">
-        <div className="profileImageWrap"><img src="/nayeem-faisal-portrait.png" alt="Nayeem Faisal"/><span>NF / 2026</span></div>
+        <div className="profileImageWrap"><img src="/nayeem-faisal-portrait-hd.png" alt="Nayeem Faisal"/><span>NF / 2026</span></div>
         <div><p className="portfolioKicker"><span/> PROFILE</p><h2>Curious across disciplines.<br/>Focused on useful outcomes.</h2><p>My academic path combines information systems, software development, databases, data engineering and the relationship between technology and organisations. Current work explores research software, reliable information flows and battery-data intelligence.</p><div className="languageRow"><span><b>English</b> Professional working proficiency</span><span><b>German</b> Elementary proficiency</span></div><div className="portfolioLinks"><a href="https://de.linkedin.com/in/nayeem-faisal-721619296" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://github.com/Nayeemfaisal" target="_blank" rel="noreferrer">GitHub ↗</a></div></div>
       </section>
 
-      <footer className="portfolioFooter"><div className="portfolioBrand"><img src="/nayeem-faisal-portrait.png" alt=""/><span>NAYEEM FAISAL</span></div><p>Building software, research and intelligent systems.</p><span>© 2026</span></footer>
+      <footer className="portfolioFooter"><div className="portfolioBrand"><img src="/nayeem-faisal-portrait-hd.png" alt=""/><span>NAYEEM FAISAL</span></div><p>Building software, research and intelligent systems.</p><span>© 2026</span></footer>
     </main>
   );
 }
