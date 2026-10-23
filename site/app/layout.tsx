@@ -14,20 +14,20 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nayeemfaisal.com"),
-  title: "Nayeem Faisal — Systems, Research & Applied Intelligence",
-  description: "The personal portfolio of Nayeem Faisal: education, software, applied experience and bachelor’s research.",
+  title: "Nayeem Faisal — Data, Intelligence & Ideas",
+  description: "Portfolio of Nayeem Faisal, an International Information Systems student exploring software development, data engineering, artificial intelligence and research.",
   openGraph: {
-    title: "Nayeem Faisal — Systems, Research & Applied Intelligence",
-    description: "Education, software, applied experience and bachelor’s research.",
+    title: "Nayeem Faisal — Connecting data, intelligence, and ideas.",
+    description: "Software development, data engineering, artificial intelligence and research.",
     type: "website",
     url: "/",
-    images: ["https://raw.githubusercontent.com/Nayeemfaisal/thesis-nayeem-faisal/main/site/public/og.png"],
+    images: ["/og.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nayeem Faisal — Systems, Research & Applied Intelligence",
-    description: "Education, software, applied experience and bachelor’s research.",
-    images: ["https://raw.githubusercontent.com/Nayeemfaisal/thesis-nayeem-faisal/main/site/public/og.png"],
+    title: "Nayeem Faisal — Connecting data, intelligence, and ideas.",
+    description: "Software development, data engineering, artificial intelligence and research.",
+    images: ["/og.png"],
   },
   icons: {
     icon: "/nayeem-faisal.png",

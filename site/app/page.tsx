@@ -1,78 +1,64 @@
 "use client";
 
-import { useEffect, type CSSProperties } from "react";
+import { useCallback, useEffect, useState } from "react";
+import PortfolioScene from "./PortfolioScene";
 
-const education = [
-  { code: "PSC", period: "2013", title: "Primary Education Certificate", place: "Bangladesh national curriculum", detail: "Government-issued primary education examination certificate—the formal completion of primary education.", focus: ["Foundational learning", "National examination"] },
-  { code: "JSC", period: "Lower-secondary stage", title: "Junior School Certificate", place: "Bangladesh", detail: "The transition from primary education into a broader lower-secondary curriculum and structured assessment.", focus: ["General studies", "Academic progression"] },
-  { code: "SSC", period: "Within the 2013–2020 school period", title: "Secondary School Certificate", place: "Bangladesh", detail: "Completion of the secondary-school stage during the education period shown on the public LinkedIn profile.", focus: ["Secondary education", "Certificate stage"] },
-  { code: "HSC", period: "2021–2023", title: "Higher Secondary Certificate", place: "Bangladesh", detail: "Higher-secondary study completed before the move into multidisciplinary university education in Germany.", focus: ["Higher secondary", "University preparation"] },
-  { code: "BSc", period: "2024–2027", title: "International Information Systems", place: "Technische Hochschule Augsburg", detail: "A multidisciplinary bachelor’s programme combining information systems and IT subjects. The public LinkedIn profile currently reports an overall grade of 1.2.", focus: ["Software development", "Databases", "Information systems", "Technology & business"] },
-];
-
-const work = [
-  { number: "01", type: "WORKING SOFTWARE", title: "THA Q&A Hub", copy: "An interactive student-support prototype with verified knowledge search, a transparent review queue and human approval.", href: "/tha-hub", link: "Open live software →", accent: "cyan" },
-  { number: "02", type: "APPLIED EXPERIENCE", title: "THA Internship", copy: "Practical experience in the applied, research-oriented environment of the Technical University of Applied Sciences Augsburg.", href: "/internship", link: "Explore experience →", accent: "violet" },
-  { number: "03", type: "BACHELOR’S THESIS", title: "EV Battery Intelligence", copy: "A reproducible research catalogue mapping 67 open datasets for battery health, ageing, safety and data-driven modelling.", href: "/thesis", link: "Open thesis wiki →", accent: "red" },
-];
+const interests = ["Software development", "Data engineering", "Artificial intelligence", "Research"];
+const linkedin = "https://de.linkedin.com/in/nayeem-faisal-721619296";
+const github = "https://github.com/Nayeemfaisal";
 
 export default function Home() {
-  useEffect(() => {
-    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
-    window.scrollTo(0, 0);
-  }, []);
+  const [ready, setReady] = useState(false);
+  const sceneReady = useCallback(() => setReady(true), []);
+  useEffect(() => { if ("scrollRestoration" in history) history.scrollRestoration = "manual"; }, []);
 
-  return (
-    <main className="portfolioShell" onPointerMove={(event) => {
-      const rect = event.currentTarget.getBoundingClientRect();
-      event.currentTarget.style.setProperty("--pointer-x", `${event.clientX - rect.left}px`);
-      event.currentTarget.style.setProperty("--pointer-y", `${event.clientY - rect.top}px`);
-    }}>
-      <div className="portfolioStars" aria-hidden="true">{Array.from({length:18},(_,i)=><i key={i}/>)}</div>
-      <div className="portfolioOrbit" aria-hidden="true"><i/><i/><i/><b/></div>
-      <div className="solarSystem" aria-hidden="true"><div className="sun"/><div className="planetOrbit orbitOne"><i/></div><div className="planetOrbit orbitTwo"><i/></div><div className="planetOrbit orbitThree"><i/></div><div className="planetOrbit orbitFour"><i/></div></div>
-      <header className="portfolioNav">
-        <a className="portfolioBrand" href="#home"><img src="/nayeem-faisal-portrait-hd.png" alt=""/><span>NAYEEM FAISAL</span></a>
-        <nav aria-label="Primary navigation"><a href="#education">Education</a><a href="#work">Current work</a><a href="#profile">Profile</a></nav>
-        <a className="portfolioContact" href="https://de.linkedin.com/in/nayeem-faisal-721619296" target="_blank" rel="noreferrer">LinkedIn ↗</a>
-      </header>
+  return <main className="nf-site">
+    <div className={`nf-loader ${ready ? "is-ready" : ""}`} aria-hidden={ready}><span>NF</span><i/><small>Preparing the experience</small></div>
+    <header className="nf-nav">
+      <a href="#top" className="nf-logo" aria-label="Nayeem Faisal home">NF<span>°</span></a>
+      <nav aria-label="Primary navigation"><a href="#about">About</a><a href="#work">Work</a><a href="#capabilities">Capabilities</a></nav>
+      <a href="#contact" className="nf-navContact">Let&apos;s talk ↗</a>
+    </header>
 
-      <section className="portfolioHero" id="home">
-        <div className="portfolioHeroCopy">
-          <p className="portfolioKicker"><span/> INTERNATIONAL INFORMATION SYSTEMS · APPLIED INTELLIGENCE</p>
-          <h1><span>Building systems</span><em>for what comes next.</em></h1>
-          <p>I’m Nayeem Faisal—a multidisciplinary bachelor’s student at THA working across software, data, applied research and intelligent systems.</p>
-          <div className="portfolioActions"><a href="#work">Explore my work</a><a href="#education">Follow my journey</a></div>
-          <dl><div><dt>1.2</dt><dd>Current overall grade</dd></div><div><dt>3</dt><dd>Active work streams</dd></div><div><dt>2</dt><dd>Working languages</dd></div></dl>
-        </div>
-        <div className="portraitStage">
-          <div className="portraitRings"><i/><i/><i/></div>
-          <img src="/nayeem-faisal-portrait-hd.png" alt="Nayeem Faisal"/>
-          <div className="portraitTelemetry"><span>PROFILE / NF–001</span><b>ACTIVE</b><small>Munich · Augsburg · Bangladesh</small></div>
-        </div>
-      </section>
+    <section className="nf-hero" id="top">
+      <PortfolioScene onReady={sceneReady}/>
+      <div className="nf-heroMeta"><span>PORTFOLIO / 2026</span><span>AUGSBURG, GERMANY</span></div>
+      <div className="nf-heroCopy"><p>Nayeem Faisal</p><h1>Connecting data,<br/><em>intelligence,</em><br/>and ideas.</h1><a href="#work">Explore my work <span>↓</span></a></div>
+      <p className="nf-scrollNote">SCROLL TO FORM THE SYSTEM</p>
+    </section>
 
-      <div className="portfolioTicker"><div><span>SOFTWARE ENGINEERING</span><i/><span>DATA SYSTEMS</span><i/><span>BATTERY RESEARCH</span><i/><span>APPLIED AI</span><i/><span>HUMAN-CENTRED PRODUCTS</span><i/></div><div aria-hidden="true"><span>SOFTWARE ENGINEERING</span><i/><span>DATA SYSTEMS</span><i/><span>BATTERY RESEARCH</span><i/><span>APPLIED AI</span><i/><span>HUMAN-CENTRED PRODUCTS</span><i/></div></div>
+    <section className="nf-about" id="about">
+      <p className="nf-label">01 / ABOUT</p>
+      <div><h2>An emerging technology professional working where systems, information and people meet.</h2><p>I study International Information Systems at Technische Hochschule Augsburg. My interests span software development, data pipelines, artificial intelligence and research—with a focus on turning complex information into useful, understandable systems.</p></div>
+    </section>
 
-      <section className="educationJourney" id="education">
-        <div className="portfolioSectionHead"><p>EDUCATION TRAJECTORY</p><h2>From foundational learning<br/>to applied technology.</h2><span>My public LinkedIn record provides the periods below. Undisclosed institution names and grades are intentionally not guessed.</span></div>
-        <div className="educationTrack">
-          {education.map((item,index)=><article key={item.code} style={{"--step":index} as CSSProperties}><div className="educationCode"><small>0{index + 1}</small>{item.code}</div><div className="educationLine"><i/></div><div className="educationBody"><b>{item.period}</b><h3>{item.title}</h3><span>{item.place}</span><p>{item.detail}</p><div className="educationTags">{item.focus.map(tag=><em key={tag}>{tag}</em>)}</div></div></article>)}
-        </div>
-        <a className="sourceLink" href="https://de.linkedin.com/in/nayeem-faisal-721619296" target="_blank" rel="noreferrer">View the source profile on LinkedIn ↗</a>
-      </section>
+    <section className="nf-work" id="work">
+      <header><p className="nf-label">02 / SELECTED WORK</p><h2>Ideas made<br/>operational.</h2></header>
+      <article className="nf-project nf-projectBlue">
+        <div className="nf-projectIndex">01</div><div className="nf-projectCopy"><p>RESEARCH DATA PIPELINE · BACHELOR&apos;S THESIS</p><h3>EV Battery Intelligence</h3><span>A reproducible research catalogue and data pipeline for discovering, comparing and preparing open battery datasets for health, ageing, safety and modelling research.</span><a href="/thesis">Explore the thesis experience ↗</a></div>
+        <div className="nf-projectVisual" aria-hidden="true"><i/><i/><i/><b>67</b><small>DATA SOURCES / RESEARCH MAP</small></div>
+      </article>
+      <article className="nf-project nf-projectLight">
+        <div className="nf-projectIndex">02</div><div className="nf-projectCopy"><p>PRODUCT CONCEPT · TIME TRACKING</p><h3>TuTime</h3><span>A tutor time-tracking project exploring clear activity records, usable workflows and reliable information structure. Further public documentation is being prepared.</span><span className="nf-unavailable">PUBLIC LINK — COMING SOON</span></div>
+        <div className="nf-projectVisual nf-time" aria-hidden="true"><i/><i/><i/><b>08:42</b><small>TUTOR SESSION / ACTIVE</small></div>
+      </article>
+      <article className="nf-project nf-projectDark">
+        <div className="nf-projectIndex">03</div><div className="nf-projectCopy"><p>WORKING SOFTWARE · KNOWLEDGE INTERFACE</p><h3>THA Q&amp;A Hub</h3><span>An independent student-support prototype that explores verified knowledge search, transparent review and human approval.</span><a href="/tha-hub">Open the working interface ↗</a></div>
+        <div className="nf-projectVisual nf-nodes" aria-hidden="true"><i/><i/><i/><i/><b>Q/A</b><small>HUMAN-IN-THE-LOOP</small></div>
+      </article>
+    </section>
 
-      <section className="currentWork" id="work">
-        <div className="portfolioSectionHead light"><p>RUNNING WORK / 2026</p><h2>Three directions.<br/>One evolving practice.</h2><span>Software building, applied experience and bachelor’s research—kept separate, connected by a common systems mindset.</span></div>
-        <div className="workGrid">{work.map(item=><a className={`workCard ${item.accent}`} href={item.href} target={item.href.startsWith("http") ? "_blank" : undefined} rel={item.href.startsWith("http") ? "noreferrer" : undefined} key={item.number}><div><b>{item.number}</b><span>{item.type}</span></div><h3>{item.title}</h3><p>{item.copy}</p><strong>{item.link}</strong><i/></a>)}</div>
-      </section>
+    <section className="nf-capabilities" id="capabilities">
+      <p className="nf-label">03 / INTERESTS &amp; CAPABILITIES</p>
+      <div className="nf-capList">{interests.map((item, index)=><div key={item}><span>0{index+1}</span><h3>{item}</h3><i>↗</i></div>)}</div>
+      <p className="nf-capNote">I am developing these capabilities through university study, independent projects and applied research. They describe my direction—not inflated claims of mastery.</p>
+    </section>
 
-      <section className="portfolioProfile" id="profile">
-        <div className="profileImageWrap"><img src="/nayeem-faisal-portrait-hd.png" alt="Nayeem Faisal"/><span>NF / 2026</span></div>
-        <div><p className="portfolioKicker"><span/> PROFILE</p><h2>Curious across disciplines.<br/>Focused on useful outcomes.</h2><p>My academic path combines information systems, software development, databases, data engineering and the relationship between technology and organisations. Current work explores research software, reliable information flows and battery-data intelligence.</p><div className="languageRow"><span><b>English</b> Professional working proficiency</span><span><b>German</b> Elementary proficiency</span></div><div className="portfolioLinks"><a href="https://de.linkedin.com/in/nayeem-faisal-721619296" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://github.com/Nayeemfaisal" target="_blank" rel="noreferrer">GitHub ↗</a></div></div>
-      </section>
-
-      <footer className="portfolioFooter"><div className="portfolioBrand"><img src="/nayeem-faisal-portrait-hd.png" alt=""/><span>NAYEEM FAISAL</span></div><p>Building software, research and intelligent systems.</p><span>© 2026</span></footer>
-    </main>
-  );
+    <section className="nf-contact" id="contact">
+      <p className="nf-label">04 / CONTACT</p><h2>Let&apos;s build<br/><em>something meaningful.</em></h2>
+      <div className="nf-contactGrid"><div><span>CONNECT</span><a href={linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a><a href={github} target="_blank" rel="noreferrer">GitHub ↗</a></div><div><span>DIRECT</span><p>Email — add address</p><p>CV — add document</p></div><div><span>LOCATION</span><p>Augsburg, Germany</p><p>Open to meaningful conversations</p></div></div>
+      <a className="nf-portrait" href={linkedin} target="_blank" rel="noreferrer"><img src="/nayeem-faisal-portrait-hd.png" alt="Nayeem Faisal"/><span>VIEW PROFILE ↗</span></a>
+    </section>
+    <footer className="nf-footer"><a href="#top">NAYEEM FAISAL</a><span>INTERNATIONAL INFORMATION SYSTEMS</span><span>© 2026</span></footer>
+  </main>;
 }
