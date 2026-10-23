@@ -87,7 +87,7 @@ export default function Home() {
         <div className="profileGrid">
           <a href="https://de.linkedin.com/in/nayeem-faisal-721619296" target="_blank" rel="noreferrer"><b>01 / PROFESSIONAL PROFILE</b><h3>LinkedIn</h3><p>My academic path, professional experience, research interests and current work at THA.</p><span>View profile ↗</span></a>
           <a href="https://www.tha.de/" target="_blank" rel="noreferrer"><b>02 / INTERNSHIP</b><h3>Technische Hochschule Augsburg</h3><p>Applied research and professional experience within THA’s practice-oriented academic environment.</p><span>Visit THA ↗</span></a>
-          <a href="https://chatgpt.com/share/6a5f2e44-e6b0-83ed-937e-c76fecbf4df6" target="_blank" rel="noreferrer"><b>03 / APP CONCEPT</b><h3>THA Q&amp;A Hub</h3><p>A student-support application concept linking university questions, professor-reviewed answers and a WhatsApp workflow.</p><span>Explore the concept ↗</span></a>
+          <a href="/tha-hub"><b>03 / WORKING SOFTWARE</b><h3>THA Q&amp;A Hub</h3><p>Try the interactive student-support prototype with verified knowledge search and a professor-review workflow.</p><span>Open live demo →</span></a>
         </div>
         <p className="profileNote">The THA Q&amp;A Hub is an independent prototype concept and is not presented as an official THA service.</p>
       </section>
