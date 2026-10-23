@@ -1,13 +1,13 @@
 "use client";
 
-import type { CSSProperties } from "react";
+import { useEffect, type CSSProperties } from "react";
 
 const education = [
-  { code: "PSC", period: "2013", title: "Primary Education Certificate", place: "Bangladesh national curriculum", detail: "Government-issued primary education examination certificate." },
-  { code: "JSC", period: "School stage", title: "Junior School Certificate", place: "Bangladesh", detail: "Lower-secondary stage within the national education pathway." },
-  { code: "SSC", period: "2013–2020 school period", title: "Secondary School Certificate", place: "Bangladesh", detail: "Secondary education period associated with the school record shown on LinkedIn." },
-  { code: "HSC", period: "2021–2023", title: "Higher Secondary Certificate", place: "Bangladesh", detail: "Higher-secondary education completed before beginning university studies in Germany." },
-  { code: "BSc", period: "2024–2027", title: "International Information Systems", place: "Technische Hochschule Augsburg", detail: "Multidisciplinary bachelor’s programme with IT subjects. LinkedIn currently reports an overall grade of 1.2." },
+  { code: "PSC", period: "2013", title: "Primary Education Certificate", place: "Bangladesh national curriculum", detail: "Government-issued primary education examination certificate—the formal completion of primary education.", focus: ["Foundational learning", "National examination"] },
+  { code: "JSC", period: "Lower-secondary stage", title: "Junior School Certificate", place: "Bangladesh", detail: "The transition from primary education into a broader lower-secondary curriculum and structured assessment.", focus: ["General studies", "Academic progression"] },
+  { code: "SSC", period: "Within the 2013–2020 school period", title: "Secondary School Certificate", place: "Bangladesh", detail: "Completion of the secondary-school stage during the education period shown on the public LinkedIn profile.", focus: ["Secondary education", "Certificate stage"] },
+  { code: "HSC", period: "2021–2023", title: "Higher Secondary Certificate", place: "Bangladesh", detail: "Higher-secondary study completed before the move into multidisciplinary university education in Germany.", focus: ["Higher secondary", "University preparation"] },
+  { code: "BSc", period: "2024–2027", title: "International Information Systems", place: "Technische Hochschule Augsburg", detail: "A multidisciplinary bachelor’s programme combining information systems and IT subjects. The public LinkedIn profile currently reports an overall grade of 1.2.", focus: ["Software development", "Databases", "Information systems", "Technology & business"] },
 ];
 
 const work = [
@@ -17,6 +17,11 @@ const work = [
 ];
 
 export default function Home() {
+  useEffect(() => {
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <main className="portfolioShell" onPointerMove={(event) => {
       const rect = event.currentTarget.getBoundingClientRect();
@@ -25,6 +30,7 @@ export default function Home() {
     }}>
       <div className="portfolioStars" aria-hidden="true">{Array.from({length:18},(_,i)=><i key={i}/>)}</div>
       <div className="portfolioOrbit" aria-hidden="true"><i/><i/><i/><b/></div>
+      <div className="solarSystem" aria-hidden="true"><div className="sun"/><div className="planetOrbit orbitOne"><i/></div><div className="planetOrbit orbitTwo"><i/></div><div className="planetOrbit orbitThree"><i/></div><div className="planetOrbit orbitFour"><i/></div></div>
       <header className="portfolioNav">
         <a className="portfolioBrand" href="#home"><img src="/nayeem-faisal-portrait.png" alt=""/><span>NAYEEM FAISAL</span></a>
         <nav aria-label="Primary navigation"><a href="#education">Education</a><a href="#work">Current work</a><a href="#profile">Profile</a></nav>
@@ -51,7 +57,7 @@ export default function Home() {
       <section className="educationJourney" id="education">
         <div className="portfolioSectionHead"><p>EDUCATION TRAJECTORY</p><h2>From foundational learning<br/>to applied technology.</h2><span>My public LinkedIn record provides the periods below. Undisclosed institution names and grades are intentionally not guessed.</span></div>
         <div className="educationTrack">
-          {education.map((item,index)=><article key={item.code} style={{"--step":index} as CSSProperties}><div className="educationCode">{item.code}</div><div className="educationLine"><i/></div><div className="educationBody"><b>{item.period}</b><h3>{item.title}</h3><span>{item.place}</span><p>{item.detail}</p></div></article>)}
+          {education.map((item,index)=><article key={item.code} style={{"--step":index} as CSSProperties}><div className="educationCode"><small>0{index + 1}</small>{item.code}</div><div className="educationLine"><i/></div><div className="educationBody"><b>{item.period}</b><h3>{item.title}</h3><span>{item.place}</span><p>{item.detail}</p><div className="educationTags">{item.focus.map(tag=><em key={tag}>{tag}</em>)}</div></div></article>)}
         </div>
         <a className="sourceLink" href="https://de.linkedin.com/in/nayeem-faisal-721619296" target="_blank" rel="noreferrer">View the source profile on LinkedIn ↗</a>
       </section>
