@@ -14,19 +14,19 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nayeemfaisal.com"),
-  title: "EV Battery Intelligence — Nayeem Faisal",
-  description: "A futuristic, LLM-ready thesis wiki mapping open battery datasets with research potential for global EV and battery teams.",
+  title: "Nayeem Faisal — Systems, Research & Applied Intelligence",
+  description: "The personal portfolio of Nayeem Faisal: education, software, applied experience and bachelor’s research.",
   openGraph: {
-    title: "EV Battery Intelligence — Nayeem Faisal",
-    description: "Open battery evidence for the electric future.",
+    title: "Nayeem Faisal — Systems, Research & Applied Intelligence",
+    description: "Education, software, applied experience and bachelor’s research.",
     type: "website",
     url: "/",
     images: ["https://raw.githubusercontent.com/Nayeemfaisal/thesis-nayeem-faisal/main/site/public/og.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "EV Battery Intelligence — Nayeem Faisal",
-    description: "Open battery evidence for the electric future.",
+    title: "Nayeem Faisal — Systems, Research & Applied Intelligence",
+    description: "Education, software, applied experience and bachelor’s research.",
     images: ["https://raw.githubusercontent.com/Nayeemfaisal/thesis-nayeem-faisal/main/site/public/og.png"],
   },
   icons: {
