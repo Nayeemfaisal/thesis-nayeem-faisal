@@ -27,7 +27,13 @@ export default function Home() {
   ), [query]);
 
   return (
-    <main>
+    <main className="thesisShell" onPointerMove={(event) => {
+      const rect = event.currentTarget.getBoundingClientRect();
+      event.currentTarget.style.setProperty("--pointer-x", `${event.clientX - rect.left}px`);
+      event.currentTarget.style.setProperty("--pointer-y", `${event.clientY - rect.top}px`);
+    }}>
+      <div className="ambientLight" aria-hidden="true" />
+      <div className="energyRail" aria-hidden="true"><i/><i/><i/></div>
       <header className="topbar">
         <a className="brand" href="#top" aria-label="Thesis Wiki home"><span className="brandMark">NF</span><span>EV Intelligence / Thesis Wiki</span></a>
         <nav aria-label="Primary navigation"><a href="#catalogue">Catalogue</a><a href="#method">Method</a><a href="#profile">Profile</a><a href="#author">Author</a></nav>
@@ -36,7 +42,7 @@ export default function Home() {
       <section className="hero" id="top">
         <div className="heroCopy">
           <p className="eyebrow"><span /> Thesis research & curation by Nayeem Faisal</p>
-          <h1>Engineering the <em>electric future.</em></h1>
+          <h1><span>Engineering the</span> <em>electric future.</em></h1>
           <p className="lede">An LLM-ready intelligence layer for open battery data—built to accelerate research in EV health, ageing, safety and next-generation energy systems.</p>
           <div className="heroActions"><a className="primary" href="#catalogue">Explore datasets</a><a className="secondary" href="#method">Read the protocol</a></div>
           <dl className="metrics"><div><dt>67</dt><dd>curated datasets</dd></div><div><dt>EV</dt><dd>industry relevance</dd></div><div><dt>AI</dt><dd>ready knowledge</dd></div></dl>
@@ -46,11 +52,13 @@ export default function Home() {
           <p className="quote">“Which public datasets are robust enough for reproducible battery health modelling?”</p>
           <div className="signal"><span>Core dimensions</span><div><i style={{width:"88%"}}/><i style={{width:"72%"}}/><i style={{width:"94%"}}/></div></div>
           <ul><li>Documentation quality</li><li>Licence compatibility</li><li>Leakage-safe evaluation</li></ul>
+          <div className="cellCore" aria-hidden="true"><i/><i/><i/><b>EV</b></div>
         </aside>
       </section>
       <section className="themes" aria-label="Research themes">
         {themes.map(([title, copy, number]) => <article key={number}><span>{number}</span><h2>{title}</h2><p>{copy}</p></article>)}
       </section>
+      <div className="dataMarquee" aria-label="Research capabilities"><div><span>OPEN BATTERY DATA</span><i/> <span>STATE OF HEALTH</span><i/> <span>DEGRADATION INTELLIGENCE</span><i/> <span>SAFETY ANALYTICS</span><i/> <span>REPRODUCIBLE MODELLING</span><i/> <span>EV RESEARCH</span><i/></div><div aria-hidden="true"><span>OPEN BATTERY DATA</span><i/> <span>STATE OF HEALTH</span><i/> <span>DEGRADATION INTELLIGENCE</span><i/> <span>SAFETY ANALYTICS</span><i/> <span>REPRODUCIBLE MODELLING</span><i/> <span>EV RESEARCH</span><i/></div></div>
       <section className="industry" id="industry">
         <div className="industryIntro">
           <p className="eyebrow"><span /> EV-scale research potential</p>
