@@ -33,9 +33,11 @@ export default function Home() {
       event.currentTarget.style.setProperty("--pointer-y", `${event.clientY - rect.top}px`);
     }}>
       <div className="ambientLight" aria-hidden="true" />
+      <div className="starField" aria-hidden="true"><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/><i/></div>
+      <div className="orbitalSystem" aria-hidden="true"><i/><i/><i/><b/></div>
       <div className="energyRail" aria-hidden="true"><i/><i/><i/></div>
       <header className="topbar">
-        <a className="brand" href="#top" aria-label="Thesis Wiki home"><span className="brandMark">NF</span><span>EV Intelligence / Thesis Wiki</span></a>
+        <a className="brand" href="#top" aria-label="Thesis Wiki home"><span className="brandMark"><img src="/nayeem-faisal-portrait.png" alt="" /></span><span>EV Intelligence / Thesis Wiki</span></a>
         <nav aria-label="Primary navigation"><a href="#catalogue">Catalogue</a><a href="#method">Method</a><a href="#profile">Profile</a><a href="#author">Author</a></nav>
         <a className="repoLink" href="https://github.com/Nayeemfaisal/thesis-nayeem-faisal" target="_blank" rel="noreferrer">View repository ↗</a>
       </header>
@@ -100,10 +102,10 @@ export default function Home() {
         <p className="profileNote">The THA Q&amp;A Hub is an independent prototype concept and is not presented as an official THA service.</p>
       </section>
       <section className="author" id="author">
-        <img src="/nayeem-faisal.png" alt="Nayeem Faisal" />
+        <img src="/nayeem-faisal-portrait.png" alt="Nayeem Faisal" />
         <div><p className="eyebrow"><span /> Researcher & thesis author</p><h2>Nayeem Faisal</h2><p className="role">Bachelor’s thesis researcher · Battery data & intelligent systems</p><p>All thesis research, catalogue curation, dataset review, comparative analysis and wiki development presented here are conducted by Nayeem Faisal. The underlying third-party datasets and published findings remain the work of their cited authors and institutions.</p><div className="authorLinks"><a href="https://de.linkedin.com/in/nayeem-faisal-721619296" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://github.com/Nayeemfaisal" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://github.com/Nayeemfaisal/thesis-nayeem-faisal" target="_blank" rel="noreferrer">Research repository ↗</a></div></div>
       </section>
-      <footer><div className="brand"><span className="brandMark">NF</span><span>EV Intelligence / Thesis Wiki</span></div><p>Thesis research and curation by Nayeem Faisal · Independent of manufacturers.</p><span>© 2026 Nayeem Faisal</span></footer>
+      <footer><div className="brand"><span className="brandMark"><img src="/nayeem-faisal-portrait.png" alt="" /></span><span>EV Intelligence / Thesis Wiki</span></div><p>Thesis research and curation by Nayeem Faisal · Independent of manufacturers.</p><span>© 2026 Nayeem Faisal</span></footer>
     </main>
   );
 }
