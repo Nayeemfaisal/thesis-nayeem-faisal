@@ -35,6 +35,11 @@ const eslintConfig = defineConfig([
         version: "detect",
       },
     },
+    rules: {
+      // vinext's current client prefetch runtime is incompatible with Next Link.
+      // Plain internal anchors keep navigation reliable in production.
+      "@next/next/no-html-link-for-pages": "off",
+    },
   },
 ]);
 
