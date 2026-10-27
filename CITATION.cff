@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "Please cite this thesis and author when referencing this work."
+title: "Development of Enhanced Energy Forecasting Framework for the Lithium Battery systems"
+type: thesis
+authors:
+  - family-names: "Faisal"
+    given-names: "Nayeem"
+repository-code: "https://github.com/Nayeemfaisal/thesis-nayeem-faisal"
+date-released: "2026-10-27"
+abstract: "A bachelor's thesis investigating lithium-ion battery remaining useful life prediction through real and synthetic battery data, exploratory analysis, LSTM, and XGBoost."
+keywords:
+  - lithium-ion batteries
+  - remaining useful life
+  - synthetic data
+  - LSTM
+  - XGBoost

@@ -1,0 +1,22 @@
+# Local and operating-system files
+.DS_Store
+Thumbs.db
+
+# Python and notebook artefacts
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# Editors
+.idea/
+.vscode/
+
+# Large/local research data
+data/raw/
+data/interim/
+*.zip
+*.7z
+*.tar
+*.gz
