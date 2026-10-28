@@ -15,6 +15,22 @@ This thesis investigates remaining useful life (RUL) prediction for lithium-ion 
 
 The final study reports that LSTM performed better across the evaluated metrics for the dataset used in the thesis.
 
+## Principal findings
+
+- Cycle Index and RUL had a −0.999 correlation in both the real and synthetic correlation matrices, showing that the synthetic data retained the central degradation direction.
+- The Frobenius norm between the matrices was 1.321, and neither matrix contained missing values.
+- The synthetic dataset preserved important relationships but was not an exact copy: Discharge Time and RUL changed from 0.012 in the real data to 0.236 in the synthetic data.
+- Both forecasting models performed well in most cases; LSTM produced the stronger result across the evaluated metrics for this dataset.
+- The model comparison identified room for improvement at higher RUL values.
+
+## Research achievements
+
+The work characterised the real benchmark data, trained a Gaussian Copula Synthesizer, generated 100,000 synthetic rows, added device-aware integrity controls, compared real and synthetic correlation structures, and evaluated tuned XGBoost and LSTM forecasting approaches.
+
+![Actual versus predicted RUL from original thesis page 64](site/public/thesis-pages/actual-vs-predicted-rul.png)
+
+![Performance metrics and conclusion from original thesis page 65](site/public/thesis-pages/performance-metrics-conclusion.png)
+
 ## Thesis website
 
 The repository includes an interactive, chapter-based thesis companion in the site directory. It provides the complete final thesis PDF, a searchable chapter index, the documented research workflow, selected findings, and author and citation information.

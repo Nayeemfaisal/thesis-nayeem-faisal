@@ -35,5 +35,10 @@ test("keeps the thesis and software routes available", async () => {
   assert.match(thesisHtml, /No AI was used in writing the thesis/);
   assert.match(thesisHtml, /Prof. Dr. Fiorentino Valerio Conte/);
   assert.match(thesisHtml, /Prof. Dr. Stephan Zimmermann/);
+  assert.match(thesisHtml, /WHAT THE RESEARCH FOUND/);
+  assert.match(thesisHtml, /WHAT THE WORK ACHIEVED/);
+  assert.match(thesisHtml, /0\.012 → 0\.236/);
+  assert.match(thesisHtml, /correlation-matrix-comparison\.png/);
+  assert.match(thesisHtml, /actual-vs-predicted-rul\.png/);
   assert.match(await hub.text(), /THA Q&amp;A Hub/);
 });
