@@ -20,6 +20,8 @@ test("server-renders the portfolio with complete metadata", async () => {
   assert.match(html, /Lithium Battery RUL Forecasting/);
   assert.match(html, /TuTime/);
   assert.match(html, /Let&#x27;s build/);
+  assert.match(html, /mailto:nayeem\.faisal@tha\.de/);
+  assert.doesNotMatch(html, /CV — add document|Email — add address/);
   assert.match(html, /property="og:image" content="https:\/\/nayeemfaisal\.com\/og\.png"/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/);
 });
