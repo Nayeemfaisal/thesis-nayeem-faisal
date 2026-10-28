@@ -1,0 +1,14 @@
+{
+  "eslint.workingDirectories": ["./site"],
+  "files.exclude": {
+    "**/.next": true,
+    "**/dist": true,
+    "**/node_modules": true
+  },
+  "search.exclude": {
+    "**/.next": true,
+    "**/dist": true,
+    "**/node_modules": true
+  },
+  "terminal.integrated.cwd": "${workspaceFolder}"
+}

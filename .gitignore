@@ -11,7 +11,11 @@ venv/
 
 # Editors
 .idea/
-.vscode/
+.tools/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
 
 # Large/local research data
 data/raw/
@@ -20,3 +24,22 @@ data/interim/
 *.7z
 *.tar
 *.gz
+
+# LaTeX build artefacts
+academic-source/tha-template/*.aux
+academic-source/tha-template/*.bbl
+academic-source/tha-template/*.bcf
+academic-source/tha-template/*.blg
+academic-source/tha-template/*.fdb_latexmk
+academic-source/tha-template/*.fls
+academic-source/tha-template/*.idx
+academic-source/tha-template/*.ilg
+academic-source/tha-template/*.ind
+academic-source/tha-template/*.lof
+academic-source/tha-template/*.log
+academic-source/tha-template/*.lot
+academic-source/tha-template/*.out
+academic-source/tha-template/*.pdf
+!academic-source/tha-template/img/Logo.pdf
+academic-source/tha-template/*.run.xml
+academic-source/tha-template/*.toc

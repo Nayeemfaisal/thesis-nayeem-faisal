@@ -1,0 +1,11 @@
+{
+  "folders": [
+    {
+      "name": "Nayeem Faisal Thesis",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "terminal.integrated.cwd": "${workspaceFolder}"
+  }
+}
