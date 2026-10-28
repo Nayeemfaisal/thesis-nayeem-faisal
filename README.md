@@ -1,6 +1,6 @@
-# Development of Enhanced Energy Forecasting Framework for the Lithium Battery systems
+# Development and Evaluation of Machine Learning Models for Lithium-Ion Battery Remaining Useful Life Prediction
 
-Bachelor's thesis by **Nayeem Faisal**, submitted at Augsburg University of Applied Sciences on 27 October 2026 under the supervision of Prof. Dr. Fiorentino Valerio Conte.
+Bachelor's thesis by **Nayeem Faisal**, submitted at Technische Hochschule Augsburg on 27 October 2026 under the supervision of Prof. Dr. Fiorentino Valerio Conte.
 
 ## Research focus
 
@@ -33,7 +33,7 @@ The work characterised the real benchmark data, trained a Gaussian Copula Synthe
 
 ## Thesis website
 
-The repository includes an interactive, chapter-based thesis companion in the site directory. It provides the complete final thesis PDF, a searchable chapter index, the documented research workflow, selected findings, and author and citation information.
+The repository includes an interactive, chapter-based thesis companion in the site directory. It provides the complete 86-page thesis PDF, a searchable chapter index, the documented research workflow, selected findings, and author and citation information.
 
 ## Run locally
 

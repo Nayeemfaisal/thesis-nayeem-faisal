@@ -1,7 +1,7 @@
 # Implemented Research Workflow
 
 **Researcher:** Nayeem Faisal
-**Study:** Development of Enhanced Energy Forecasting Framework for the Lithium Battery systems
+**Study:** Development and Evaluation of Machine Learning Models for Lithium-Ion Battery Remaining Useful Life Prediction
 
 This document records the workflow described in the final thesis. The PDF remains the authoritative source for all methodological detail.
 

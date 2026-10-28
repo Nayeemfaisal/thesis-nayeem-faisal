@@ -7,5 +7,29 @@
   ],
   "settings": {
     "terminal.integrated.cwd": "${workspaceFolder}"
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Setup local workspace",
+        "type": "shell",
+        "command": "./scripts/setup-local.sh",
+        "problemMatcher": []
+      },
+      {
+        "label": "Run thesis website",
+        "type": "shell",
+        "command": "./scripts/run-site.sh",
+        "isBackground": true,
+        "problemMatcher": []
+      },
+      {
+        "label": "Verify website",
+        "type": "shell",
+        "command": "./scripts/test-site.sh && ./scripts/lint-site.sh",
+        "problemMatcher": []
+      }
+    ]
   }
 }

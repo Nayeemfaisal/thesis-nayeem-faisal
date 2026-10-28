@@ -29,7 +29,8 @@ test("keeps the thesis and software routes available", async () => {
   assert.equal(thesis.status, 200);
   assert.equal(hub.status, 200);
   const thesisHtml = await thesis.text();
-  assert.match(thesisHtml, /Development of Enhanced Energy/);
+  assert.match(thesisHtml, /Development and Evaluation of Machine Learning Models/);
+  assert.match(thesisHtml, /86/);
   assert.match(thesisHtml, /KNOWLEDGE INDEX/);
   assert.match(thesisHtml, /One connected evidence chain/);
   assert.match(thesisHtml, /No AI was used in writing the thesis/);
