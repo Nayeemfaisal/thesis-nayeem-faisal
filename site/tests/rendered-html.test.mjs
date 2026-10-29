@@ -36,6 +36,10 @@ test("keeps the thesis and software routes available", async () => {
   assert.match(thesisHtml, /KNOWLEDGE INDEX/);
   assert.match(thesisHtml, /One connected evidence chain/);
   assert.match(thesisHtml, /No AI was used in writing the thesis/);
+  assert.match(thesisHtml, /ROADMAP TO STRONGER ACADEMIC VALIDATION/);
+  assert.match(thesisHtml, /These are recommended extensions, not completed findings/);
+  assert.match(thesisHtml, /Leakage-safe battery-level testing/);
+  assert.match(thesisHtml, /Read the verified book edition/);
   assert.match(thesisHtml, /Prof. Dr. Fiorentino Valerio Conte/);
   assert.match(thesisHtml, /Prof. Dr. Stephan Zimmermann/);
   assert.match(thesisHtml, /WHAT THE RESEARCH FOUND/);

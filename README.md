@@ -33,7 +33,9 @@ The work characterised the real benchmark data, trained a Gaussian Copula Synthe
 
 ## Thesis website
 
-The repository includes an interactive, chapter-based thesis companion in the site directory. It provides the complete 86-page thesis PDF, a searchable chapter index, the documented research workflow, selected findings, and author and citation information.
+The repository includes an interactive, chapter-based thesis companion in the site directory. It provides the verified 86-page book edition, a searchable chapter index, the documented research workflow, selected findings, and author and citation information. A separate academic-validation roadmap identifies possible future experiments without presenting them as completed results.
+
+The published PDF has SHA-256 checksum `6799f78df1fe20283cd651e7fe068739db8a275b259b9d344f89fa29fc935f12`.
 
 ## Run locally
 
