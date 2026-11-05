@@ -39,7 +39,8 @@ test("keeps the thesis and software routes available", async () => {
   assert.match(thesisHtml, /ROADMAP TO STRONGER ACADEMIC VALIDATION/);
   assert.match(thesisHtml, /These are recommended extensions, not completed findings/);
   assert.match(thesisHtml, /Leakage-safe battery-level testing/);
-  assert.match(thesisHtml, /Read the verified book edition/);
+  assert.match(thesisHtml, /Read it like a book/);
+  assert.match(thesisHtml, /thesis-book-cover\.png/);
   assert.match(thesisHtml, /Prof. Dr. Fiorentino Valerio Conte/);
   assert.match(thesisHtml, /Prof. Dr. Stephan Zimmermann/);
   assert.match(thesisHtml, /WHAT THE RESEARCH FOUND/);

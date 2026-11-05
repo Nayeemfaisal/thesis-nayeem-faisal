@@ -13,6 +13,8 @@ const eslintConfig = defineConfig([
     "dist/**",
     "out/**",
     "build/**",
+    "public/pdf.min.mjs",
+    "public/pdf.worker.min.mjs",
     "next-env.d.ts",
   ]),
   eslint.configs.recommended,
