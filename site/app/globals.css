@@ -132,3 +132,6 @@
 @media(max-width:1400px){.nf-contact h2 em span{display:block}.nf-contact h2 em{line-height:.78}}
 @media(max-width:900px){.nf-contact{scroll-margin-top:82px}}
 @media(prefers-reduced-motion:reduce){.nf-motion-ready .nf-reveal{opacity:1;translate:none}.nf-cursorAura{display:none}.nf-marquee>div{animation:none}.nf-contact:before{animation:none}}
+
+/* Researcher portrait: preserve the supplied square composition on every viewport. */
+.tw-author>img{aspect-ratio:1;object-fit:cover;object-position:center}
