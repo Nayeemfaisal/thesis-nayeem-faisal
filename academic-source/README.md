@@ -1,6 +1,6 @@
 # Academic source workspace
 
-This directory keeps the supplied THA source materials beside the thesis website without presenting generated text as part of the submitted thesis.
+This directory keeps the supplied THA source materials beside the thesis website without treating generated layout material as a submitted thesis.
 
 ## THA LaTeX template
 
@@ -12,4 +12,4 @@ The preview does not reproduce or replace the full thesis. The PDF published on 
 
 ## Exposé template
 
-`expose/Vorlage Expose.docx` is the supplied blank Word template preserved unchanged. It has not been filled automatically, because doing so would create new academic wording that is not part of Nayeem Faisal's original submitted work.
+`expose/Vorlage Expose.docx` is the supplied blank Word template preserved unchanged. It has not been filled automatically because the completed academic wording must be reviewed and supplied by the author.

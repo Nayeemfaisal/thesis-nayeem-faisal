@@ -59,7 +59,7 @@ Open http://localhost:3000/thesis.
 
 ### THA LaTeX workspace preview
 
-The LaTeX workspace is intentionally a template preview, not a rewritten version of the submitted thesis. Start Docker Desktop, then run:
+The LaTeX workspace is intentionally a template preview, not a rewritten version of the thesis. Start Docker Desktop, then run:
 
     ./scripts/build-thesis-docker.sh
 
@@ -81,4 +81,4 @@ Or run **Verify website** from VS Code.
 
 ## Authorship
 
-The thesis research, wording, figures, tables, analysis, and conclusions are Nayeem Faisal's original academic work. The PDF is the authoritative source. The website is a navigable companion and does not replace the submitted paper.
+Nayeem Faisal is named as the thesis author. The website is a navigable companion, and the assembled final-review PDF must be approved by the author and supervisors before it is treated as a submission edition.
