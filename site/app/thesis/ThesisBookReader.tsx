@@ -26,7 +26,7 @@ type FlipDirection = "next" | "previous" | null;
 
 export default function ThesisBookReader() {
   const [document, setDocument] = useState<PDFDocumentProxy | null>(null);
-  const [totalPages, setTotalPages] = useState(86);
+  const [totalPages, setTotalPages] = useState(100);
   const [page, setPage] = useState(1);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -52,7 +52,8 @@ export default function ThesisBookReader() {
 
     async function loadPdf() {
       try {
-        const pdfjs = await import(/* @vite-ignore */ PDFJS_URL) as {
+        const pdfjsUrl = new URL(PDFJS_URL, window.location.href).href;
+        const pdfjs = await import(/* @vite-ignore */ pdfjsUrl) as {
           GlobalWorkerOptions: { workerSrc: string };
           getDocument: (options: { url: string }) => { promise: Promise<PDFDocumentProxy> };
         };
@@ -198,7 +199,7 @@ export default function ThesisBookReader() {
         <button className="book-closed" type="button" onClick={() => setOpen(true)} aria-label="Open the thesis book">
           <span className="book-cover-spine" aria-hidden="true" />
           <img src="/thesis-book-cover.png" alt="White hardcover of Nayeem Faisal's bachelor thesis" />
-          <span className="book-open-cue"><b>OPEN THE BOOK</b><small>Interactive 86-page edition</small></span>
+          <span className="book-open-cue"><b>OPEN THE BOOK</b><small>Interactive 100-page final-review candidate</small></span>
         </button>
       ) : (
         <>

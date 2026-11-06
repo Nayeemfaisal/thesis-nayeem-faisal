@@ -1,6 +1,6 @@
 # Development and Evaluation of Machine Learning Models for Lithium-Ion Battery Remaining Useful Life Prediction
 
-Bachelor's thesis by **Nayeem Faisal**, submitted at Technische Hochschule Augsburg on 27 October 2026 under the supervision of Prof. Dr. Fiorentino Valerio Conte.
+Bachelor's thesis by **Nayeem Faisal**, dated 27 October 2026 at Technische Hochschule Augsburg. The current final-review candidate lists Prof. Dr. rer. nat. Jana Görmer-Redding as first supervisor and Prof. Dr. Fiorentino Valerio Conte as second supervisor.
 
 ## Research focus
 
@@ -33,9 +33,9 @@ The work characterised the real benchmark data, trained a Gaussian Copula Synthe
 
 ## Thesis website
 
-The repository includes an interactive, chapter-based thesis companion in the site directory. It provides the verified 86-page book edition, a searchable chapter index, the documented research workflow, selected findings, and author and citation information. A separate academic-validation roadmap identifies possible future experiments without presenting them as completed results.
+The repository includes an interactive, chapter-based thesis companion in the site directory. It provides the visually checked 100-page THA final-review candidate, a searchable chapter index, the documented research workflow, selected findings, and author and citation information. A separate academic-validation roadmap identifies possible future experiments without presenting them as completed results.
 
-The published PDF has SHA-256 checksum `6799f78df1fe20283cd651e7fe068739db8a275b259b9d344f89fa29fc935f12`.
+The published PDF has SHA-256 checksum `4a9a28829ac2290038290c97048720098170aff2476e137dee7270de344ff2a1`.
 
 ## Run locally
 
@@ -63,7 +63,7 @@ The LaTeX workspace is intentionally a template preview, not a rewritten version
 
     ./scripts/build-thesis-docker.sh
 
-The generated preview is `academic-source/tha-template/Nayeem-Faisal-THA-Workspace.pdf`. The final submitted thesis PDF on the website remains the authoritative academic document.
+The generated preview is `academic-source/tha-template/Nayeem-Faisal-THA-Workspace.pdf`. The website PDF is the current final-review candidate; author and supervisor approval are still required before formal submission or printing.
 
 ## Verify
 
