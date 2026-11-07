@@ -286,26 +286,99 @@ def add_table_guides(doc: pymupdf.Document) -> None:
         (0.227, 0.310, 0.333),
         (0.502, 0.255, 0.329),
     ]
-    labels = ["Reference", "Techniques", "Application Domain", "Principal Insights"]
-    page.draw_rect(pymupdf.Rect(x[0], top, x[-1], bottom), color=(1, 1, 1), fill=(1, 1, 1), overlay=True)
-    for index, label in enumerate(labels):
+    for index in range(4):
         rect = pymupdf.Rect(x[index], top, x[index + 1], bottom)
-        page.draw_rect(rect, color=header_colors[index], fill=header_colors[index], overlay=True)
-        page.insert_textbox(
-            pymupdf.Rect(rect.x0 + 4, rect.y0 + 6, rect.x1 - 4, rect.y1 - 2),
-            label,
-            fontname="helv",
-            fontsize=8,
-            color=(1, 1, 1),
-            align=pymupdf.TEXT_ALIGN_CENTER,
+        page.draw_rect(
+            rect,
+            color=None,
+            fill=header_colors[index],
+            fill_opacity=0.16,
             overlay=True,
         )
     for xx in x[1:-1]:
         page.draw_line((xx, bottom), (xx, 760), color=(0.82, 0.82, 0.82), width=0.45, overlay=True)
 
-    continuation = doc[27]
-    continuation.draw_rect(pymupdf.Rect(52, 62, 190, 78), color=(1, 1, 1), fill=(1, 1, 1), overlay=True)
-    continuation.insert_text((52, 74), "TABLE 3 (CONTINUED)", fontname="helv", fontsize=7.2, color=(0.227, 0.569, 0.667), overlay=True)
+
+def add_table_readability_styles(doc: pymupdf.Document) -> None:
+    """Add publication-style colour and separators without replacing table text."""
+    palettes = [
+        ((1.0, 0.76, 0.25), (0.20, 0.70, 1.0)),
+        ((0.12, 0.70, 0.50), (1.0, 0.32, 0.54)),
+        ((0.55, 0.42, 0.95), (0.15, 0.72, 0.78)),
+    ]
+
+    def shade_rows(
+        page_number: int,
+        x0: float,
+        x1: float,
+        boundaries: list[float],
+        palette_index: int,
+    ) -> None:
+        page = doc[page_number - 1]
+        colours = palettes[palette_index]
+        for row_index, (top, bottom) in enumerate(zip(boundaries, boundaries[1:])):
+            page.draw_rect(
+                pymupdf.Rect(x0, top, x1, bottom),
+                color=None,
+                fill=colours[row_index % 2],
+                fill_opacity=0.085,
+                overlay=True,
+            )
+            page.draw_line(
+                (x0, bottom),
+                (x1, bottom),
+                color=(0.72, 0.72, 0.72),
+                width=0.35,
+                stroke_opacity=0.45,
+                overlay=True,
+            )
+
+    # Table 1: prediction-method literature comparison (three pages).
+    shade_rows(16, 54, 587, [364, 410, 440, 483, 515, 568, 611, 656, 679, 722], 0)
+    shade_rows(17, 54, 587, [60, 116, 161, 206, 249, 294, 325, 370, 414, 458, 489, 534, 564, 609, 653, 684, 714, 744], 0)
+    shade_rows(18, 54, 587, [60, 102, 133, 165, 223], 0)
+
+    # Table 2: deep-learning literature comparison (two pages).
+    shade_rows(21, 86, 589, [173, 216, 257, 298, 339, 380, 433, 462, 503, 544, 573, 625, 680, 720], 1)
+    shade_rows(22, 86, 589, [60, 100, 142, 194, 236, 277, 306, 347, 400], 1)
+
+    # Table 3: parameterisation literature comparison (two pages).
+    shade_rows(27, 54, 587, [210, 253, 294, 335, 376, 417, 458, 486, 527, 555, 584, 625, 653, 694, 722], 2)
+    shade_rows(28, 54, 587, [62, 115, 156, 184, 225, 266, 295, 335, 364, 405, 446, 486, 527, 568], 2)
+
+    # Light column guides make the dense comparisons easier to scan.
+    guide_sets = [
+        (16, [159, 302, 410], 346, 722),
+        (17, [159, 302, 410], 60, 744),
+        (18, [159, 302, 410], 60, 223),
+        (21, [219, 343, 446], 156, 720),
+        (22, [219, 343, 446], 60, 400),
+        (27, [156, 318, 429], 190, 722),
+        (28, [156, 318, 429], 62, 568),
+    ]
+    for page_number, guides, top, bottom in guide_sets:
+        page = doc[page_number - 1]
+        for x in guides:
+            page.draw_line(
+                (x, top),
+                (x, bottom),
+                color=(0.55, 0.55, 0.55),
+                width=0.45,
+                stroke_opacity=0.42,
+                overlay=True,
+            )
+
+    # Give the small benchmark table and both correlation matrices a matching frame.
+    doc[28].draw_rect(
+        pymupdf.Rect(80, 268, 483, 508),
+        color=(0.502, 0.255, 0.329),
+        width=1.2,
+        stroke_opacity=0.72,
+        overlay=True,
+    )
+    shade_rows(56, 86, 523, [468, 491, 514, 537, 560, 583, 606, 629, 652, 675, 698, 721, 742], 1)
+    shade_rows(57, 86, 523, [72, 94, 116, 138, 160, 182, 204, 226, 248, 270, 292, 317], 1)
+    shade_rows(57, 86, 523, [431, 454, 477, 500, 523, 546, 569, 592, 615, 638, 661, 684, 707, 730, 743], 0)
 
 
 def repair_figure_24_pagination(doc: pymupdf.Document, source: pymupdf.Document) -> None:
@@ -406,8 +479,9 @@ def main() -> None:
 
     repair_figure_24_pagination(doc, source)
 
-    # Improve Table 3 without changing any study, method, domain, or finding text.
+    # Improve every table without changing any study, method, domain, finding, or value.
     add_table_guides(doc)
+    add_table_readability_styles(doc)
     add_headers_and_footers(doc)
     # Remove the obsolete page number embedded in the original declaration artwork.
     doc[85].draw_rect(pymupdf.Rect(515, 775, 555, 806), color=(1, 1, 1), fill=(1, 1, 1), overlay=True)
