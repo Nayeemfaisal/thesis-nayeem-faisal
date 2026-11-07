@@ -2,8 +2,10 @@ from __future__ import annotations
 
 from io import BytesIO
 from pathlib import Path
+import re
 
 import pymupdf
+from PIL import Image
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.utils import ImageReader
@@ -235,6 +237,36 @@ def shift_chapter_content(doc: pymupdf.Document, source: pymupdf.Document, page_
     page.show_pdf_page(target, source, page_number - 1, clip=source_rect, keep_proportion=False)
 
 
+def center_table_regions(doc: pymupdf.Document, source: pymupdf.Document) -> None:
+    """Reposition the comparison tables on the physical centre line of each page."""
+    regions = [
+        (16, pymupdf.Rect(54, 342, 587, 723), -23),
+        (17, pymupdf.Rect(54, 60, 587, 744), -23),
+        (18, pymupdf.Rect(54, 60, 587, 223), -23),
+        (21, pymupdf.Rect(86, 153, 589, 723), -40),
+        (22, pymupdf.Rect(86, 60, 589, 405), -40),
+        (27, pymupdf.Rect(54, 188, 587, 725), -23),
+        (28, pymupdf.Rect(54, 60, 587, 568), -23),
+    ]
+    for page_number, clip, horizontal_shift in regions:
+        page = doc[page_number - 1]
+        page.add_redact_annot(clip, fill=(1, 1, 1))
+        page.apply_redactions(images=pymupdf.PDF_REDACT_IMAGE_NONE)
+        target = pymupdf.Rect(
+            clip.x0 + horizontal_shift,
+            clip.y0,
+            clip.x1 + horizontal_shift,
+            clip.y1,
+        )
+        page.show_pdf_page(
+            target,
+            source,
+            page_number - 1,
+            clip=clip,
+            keep_proportion=False,
+        )
+
+
 def section_name(page_number: int) -> str:
     if page_number == 2:
         return "ABSTRACT"
@@ -278,7 +310,7 @@ def page_label(page_number: int) -> str:
 
 def add_table_guides(doc: pymupdf.Document) -> None:
     page = doc[26]
-    x = [52, 155, 317, 429, 587]
+    x = [29, 132, 294, 406, 564]
     top, bottom = 190, 216
     header_colors = [
         (1.0, 0.012, 0.314),
@@ -334,27 +366,27 @@ def add_table_readability_styles(doc: pymupdf.Document) -> None:
             )
 
     # Table 1: prediction-method literature comparison (three pages).
-    shade_rows(16, 54, 587, [364, 410, 440, 483, 515, 568, 611, 656, 679, 722], 0)
-    shade_rows(17, 54, 587, [60, 116, 161, 206, 249, 294, 325, 370, 414, 458, 489, 534, 564, 609, 653, 684, 714, 744], 0)
-    shade_rows(18, 54, 587, [60, 102, 133, 165, 223], 0)
+    shade_rows(16, 31, 564, [364, 410, 440, 483, 515, 568, 611, 656, 679, 722], 0)
+    shade_rows(17, 31, 564, [60, 116, 161, 206, 249, 294, 325, 370, 414, 458, 489, 534, 564, 609, 653, 684, 714, 744], 0)
+    shade_rows(18, 31, 564, [60, 102, 133, 165, 223], 0)
 
     # Table 2: deep-learning literature comparison (two pages).
-    shade_rows(21, 86, 589, [173, 216, 257, 298, 339, 380, 433, 462, 503, 544, 573, 625, 680, 720], 1)
-    shade_rows(22, 86, 589, [60, 100, 142, 194, 236, 277, 306, 347, 400], 1)
+    shade_rows(21, 46, 549, [173, 216, 257, 298, 339, 380, 433, 462, 503, 544, 573, 625, 680, 720], 1)
+    shade_rows(22, 46, 549, [60, 100, 142, 194, 236, 277, 306, 347, 400], 1)
 
     # Table 3: parameterisation literature comparison (two pages).
-    shade_rows(27, 54, 587, [210, 253, 294, 335, 376, 417, 458, 486, 527, 555, 584, 625, 653, 694, 722], 2)
-    shade_rows(28, 54, 587, [62, 115, 156, 184, 225, 266, 295, 335, 364, 405, 446, 486, 527, 568], 2)
+    shade_rows(27, 31, 564, [210, 253, 294, 335, 376, 417, 458, 486, 527, 555, 584, 625, 653, 694, 722], 2)
+    shade_rows(28, 31, 564, [62, 115, 156, 184, 225, 266, 295, 335, 364, 405, 446, 486, 527, 568], 2)
 
     # Light column guides make the dense comparisons easier to scan.
     guide_sets = [
-        (16, [159, 302, 410], 346, 722),
-        (17, [159, 302, 410], 60, 744),
-        (18, [159, 302, 410], 60, 223),
-        (21, [219, 343, 446], 156, 720),
-        (22, [219, 343, 446], 60, 400),
-        (27, [156, 318, 429], 190, 722),
-        (28, [156, 318, 429], 62, 568),
+        (16, [136, 279, 387], 346, 722),
+        (17, [136, 279, 387], 60, 744),
+        (18, [136, 279, 387], 60, 223),
+        (21, [179, 303, 406], 156, 720),
+        (22, [179, 303, 406], 60, 400),
+        (27, [133, 295, 406], 190, 722),
+        (28, [133, 295, 406], 62, 568),
     ]
     for page_number, guides, top, bottom in guide_sets:
         page = doc[page_number - 1]
@@ -379,6 +411,55 @@ def add_table_readability_styles(doc: pymupdf.Document) -> None:
     shade_rows(56, 86, 523, [468, 491, 514, 537, 560, 583, 606, 629, 652, 675, 698, 721, 742], 1)
     shade_rows(57, 86, 523, [72, 94, 116, 138, 160, 182, 204, 226, 248, 270, 292, 317], 1)
     shade_rows(57, 86, 523, [431, 454, 477, 500, 523, 546, 569, 592, 615, 638, 661, 684, 707, 730, 743], 0)
+
+
+def colourize_structural_text(doc: pymupdf.Document) -> None:
+    """Colour headings and captions while leaving paragraph text dark and searchable."""
+    heading_pattern = re.compile(
+        r"^(?:\d+(?:\.\d+)+\.?\s+|\d+\.\s+|Chapter\s+\d+|ABSTRACT$|"
+        r"LIST OF|TABLE OF CONTENTS|References$|Declaration concerning|Figure\s+\d+|Table\s+\d+)",
+        re.IGNORECASE,
+    )
+    chapter_pattern = re.compile(r"^(?:\d+\.\s+|Chapter\s+\d+|ABSTRACT$|LIST OF|TABLE OF CONTENTS|References$)", re.IGNORECASE)
+    caption_pattern = re.compile(r"^(?:Figure|Table)\s+\d+", re.IGNORECASE)
+    chapter_colour = (128, 65, 84)
+    section_colour = (36, 126, 146)
+    caption_colour = (65, 91, 111)
+
+    for page_number, page in enumerate(doc, start=1):
+        if page_number == 1:
+            continue
+        jobs: list[tuple[pymupdf.Rect, tuple[int, int, int], bytes]] = []
+        for block in page.get_text("dict").get("blocks", []):
+            if "lines" not in block:
+                continue
+            for line in block["lines"]:
+                text = "".join(span.get("text", "") for span in line.get("spans", [])).strip()
+                if not text or not heading_pattern.match(text):
+                    continue
+                rect = pymupdf.Rect(line["bbox"])
+                if rect.y0 < 52 or rect.y1 > 805 or rect.width < 10:
+                    continue
+                rect = pymupdf.Rect(rect.x0 - 1.5, rect.y0 - 1.2, rect.x1 + 1.5, rect.y1 + 1.2)
+                colour = caption_colour if caption_pattern.match(text) else chapter_colour if chapter_pattern.match(text) else section_colour
+                pix = page.get_pixmap(matrix=pymupdf.Matrix(3, 3), clip=rect, alpha=False)
+                image = Image.open(BytesIO(pix.tobytes("png"))).convert("RGBA")
+                pixels = image.load()
+                for y in range(image.height):
+                    for x in range(image.width):
+                        red, green, blue, _ = pixels[x, y]
+                        darkness = 255 - max(red, green, blue)
+                        if darkness < 10:
+                            pixels[x, y] = (255, 255, 255, 0)
+                        else:
+                            alpha = min(255, int(darkness * 1.16))
+                            pixels[x, y] = (*colour, alpha)
+                stream = BytesIO()
+                image.save(stream, format="PNG")
+                jobs.append((rect, colour, stream.getvalue()))
+        for rect, _colour, png in jobs:
+            page.draw_rect(rect, color=None, fill=(1, 1, 1), overlay=True)
+            page.insert_image(rect, stream=png, keep_proportion=False, overlay=True)
 
 
 def repair_figure_24_pagination(doc: pymupdf.Document, source: pymupdf.Document) -> None:
@@ -478,10 +559,12 @@ def main() -> None:
     replace_page(doc, 63, figure_page)
 
     repair_figure_24_pagination(doc, source)
+    center_table_regions(doc, source)
 
     # Improve every table without changing any study, method, domain, finding, or value.
     add_table_guides(doc)
     add_table_readability_styles(doc)
+    colourize_structural_text(doc)
     add_headers_and_footers(doc)
     # Remove the obsolete page number embedded in the original declaration artwork.
     doc[85].draw_rect(pymupdf.Rect(515, 775, 555, 806), color=(1, 1, 1), fill=(1, 1, 1), overlay=True)
