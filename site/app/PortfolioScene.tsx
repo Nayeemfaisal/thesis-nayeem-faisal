@@ -34,7 +34,7 @@ export default function PortfolioScene({ onReady }: { onReady: () => void }) {
     pointGeometry.setAttribute("aTarget", new THREE.BufferAttribute(connected, 3));
     const pointMaterial = new THREE.ShaderMaterial({
       transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
-      uniforms: { uTime: { value: 0 }, uProgress: { value: .08 }, uColor: { value: new THREE.Color("#1977ff") } },
+      uniforms: { uTime: { value: 0 }, uProgress: { value: .08 }, uColor: { value: new THREE.Color("#ff315f") } },
       vertexShader: `uniform float uTime;uniform float uProgress;attribute vec3 aTarget;varying float vAlpha;void main(){float p=smoothstep(0.,1.,uProgress);vec3 pos=mix(position,aTarget,p);pos.x+=sin(pos.y*1.8+uTime*.55)*.08*p;pos.y+=cos(pos.x*1.4+uTime*.4)*.06*p;vec4 mv=modelViewMatrix*vec4(pos,1.);gl_PointSize=(1.4+2.5*p)*(8./-mv.z);gl_Position=projectionMatrix*mv;vAlpha=.32+.68*p;}`,
       fragmentShader: `uniform vec3 uColor;varying float vAlpha;void main(){float d=distance(gl_PointCoord,vec2(.5));float a=smoothstep(.5,.05,d)*vAlpha;gl_FragColor=vec4(uColor,a);}`,
     });
@@ -46,9 +46,9 @@ export default function PortfolioScene({ onReady }: { onReady: () => void }) {
     const ring = new THREE.Mesh(new THREE.TorusGeometry(2.18, .055, 14, 220), darkMetal); ring.rotation.set(.72, .2, .22);
     const ringTwo = ring.clone(); ringTwo.scale.setScalar(.72); ringTwo.rotation.set(-.45, .8, -.25);
     sculpture.add(knot, ring, ringTwo); scene.add(sculpture);
-    scene.add(new THREE.HemisphereLight("#eef6ff", "#11151b", 2.2));
-    const key = new THREE.PointLight("#4b9aff", 36, 16); key.position.set(3, 3, 4); scene.add(key);
-    const rim = new THREE.PointLight("#ffffff", 22, 14); rim.position.set(-4, -2, 2); scene.add(rim);
+    scene.add(new THREE.HemisphereLight("#fff4e7", "#080e18", 2.2));
+    const key = new THREE.PointLight("#ff315f", 36, 16); key.position.set(3, 3, 4); scene.add(key);
+    const rim = new THREE.PointLight("#ffb14a", 22, 14); rim.position.set(-4, -2, 2); scene.add(rim);
 
     const resize = () => { const { clientWidth, clientHeight } = mount; renderer.setSize(clientWidth, clientHeight, false); camera.aspect = clientWidth / Math.max(clientHeight, 1); camera.updateProjectionMatrix(); };
     const move = (event: PointerEvent) => pointer.set((event.clientX / innerWidth - .5) * 2, (event.clientY / innerHeight - .5) * 2);

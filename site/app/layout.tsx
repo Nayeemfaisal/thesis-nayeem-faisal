@@ -21,17 +21,18 @@ export const metadata: Metadata = {
     description: "Software development, data engineering, artificial intelligence and research.",
     type: "website",
     url: "/",
-    images: ["/og.png"],
+    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Nayeem Faisal — data, intelligence, and systems" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Nayeem Faisal — Connecting data, intelligence, and ideas.",
     description: "Software development, data engineering, artificial intelligence and research.",
-    images: ["/og.png"],
+    images: ["/og.jpg"],
   },
   icons: {
-    icon: "/nayeem-faisal.png",
-    shortcut: "/nayeem-faisal.png",
+    icon: "/nayeem-logo.png",
+    shortcut: "/nayeem-logo.png",
+    apple: "/nayeem-logo.png",
   },
 };
 

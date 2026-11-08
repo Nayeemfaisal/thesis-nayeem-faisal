@@ -65,9 +65,9 @@ export default function Home() {
   return <main className="nf-site">
     <div className="nf-progress" aria-hidden="true" />
     <div className="nf-cursorAura" aria-hidden="true" />
-    <div className={`nf-loader ${ready ? "is-ready" : ""}`} aria-hidden={ready}><span>NF</span><i/><small>Preparing the experience</small></div>
+    <div className={`nf-loader ${ready ? "is-ready" : ""}`} aria-hidden={ready}><img src="/nayeem-logo.png" alt=""/><i/><small>Preparing the experience</small></div>
     <header className="nf-nav">
-      <a href="#top" className="nf-logo" aria-label="Nayeem Faisal home">NF<span>°</span></a>
+      <a href="#top" className="nf-logo" aria-label="Nayeem Faisal home"><img src="/nayeem-logo.png" alt=""/><span><b>NAYEEM</b><small>FAISAL</small></span></a>
       <nav aria-label="Primary navigation"><a href="#about">About</a><a href="#work">Work</a><a href="#capabilities">Capabilities</a><a href="/internship">Experience</a></nav>
       <a href="#ask" className="nf-navContact">Ask Nayeem ↗</a>
     </header>
@@ -76,6 +76,7 @@ export default function Home() {
       <PortfolioScene onReady={sceneReady}/>
       <div className="nf-heroMeta"><span>PORTFOLIO / 2026</span><span>AUGSBURG, GERMANY</span></div>
       <div className="nf-heroCopy"><p>Nayeem Faisal</p><h1><span>Connecting data,</span><br/><em>intelligence,</em><br/><span>and ideas.</span></h1><a href="#work">Explore my work <span>↓</span></a></div>
+      <div className="nf-heroMark" aria-hidden="true"><img src="/nayeem-logo.png" alt=""/><span>PERSONAL MARK</span><small>DATA · INTELLIGENCE · SYSTEMS</small></div>
       <p className="nf-scrollNote">SCROLL TO FORM THE SYSTEM</p>
     </section>
 
@@ -114,8 +115,8 @@ export default function Home() {
       <p className="nf-label">05 / CONTACT</p><h2>Let&apos;s build<br/><em><span>something</span> <span>meaningful.</span></em></h2>
       <div className="nf-contactGrid"><div><span>CONNECT</span><a href={linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a><a href={github} target="_blank" rel="noreferrer">GitHub ↗</a></div><div><span>DIRECT</span><a className="nf-email" href={`mailto:${email}`}>{email} ↗</a></div><div><span>LOCATION</span><p>Augsburg, Germany</p><p>Open to meaningful conversations</p></div></div>
       <a className="nf-emailCta" href={`mailto:${email}`}><span>START A CONVERSATION</span><b>↗</b></a>
-      <a className="nf-portrait" href={linkedin} target="_blank" rel="noreferrer"><img src="/nayeem-faisal-portrait-hd.png" alt="Nayeem Faisal"/><span>VIEW PROFILE ↗</span></a>
+      <a className="nf-portrait" href={linkedin} target="_blank" rel="noreferrer"><img src="/nayeem-brand-portrait.webp" alt="Nayeem Faisal"/><span>VIEW PROFILE ↗</span></a>
     </section>
-    <footer className="nf-footer"><a href="#top">NAYEEM FAISAL</a><span>INTERNATIONAL INFORMATION SYSTEMS</span><span>© 2026</span></footer>
+    <footer className="nf-footer"><a href="#top" className="nf-footerBrand"><img src="/nayeem-logo.png" alt=""/>NAYEEM FAISAL</a><span>INTERNATIONAL INFORMATION SYSTEMS</span><span>© 2026</span></footer>
   </main>;
 }

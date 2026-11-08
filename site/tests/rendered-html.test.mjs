@@ -22,7 +22,8 @@ test("server-renders the portfolio with complete metadata", async () => {
   assert.match(html, /Let&#x27;s build/);
   assert.match(html, /mailto:nayeem\.faisal@tha\.de/);
   assert.doesNotMatch(html, /CV — add document|Email — add address/);
-  assert.match(html, /property="og:image" content="https:\/\/nayeemfaisal\.com\/og\.png"/);
+  assert.match(html, /property="og:image" content="https:\/\/nayeemfaisal\.com\/og\.jpg"/);
+  assert.match(html, /class="nf-logo"[^>]*>[\s\S]*?nayeem-logo\.png/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/);
 });
 
