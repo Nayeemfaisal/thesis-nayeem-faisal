@@ -227,7 +227,7 @@ def make_source_disclosure_page(path: Path) -> None:
 
     left = 27 * mm
     width = 156 * mm
-    y = PAGE_H - 48 * mm
+    y = PAGE_H - 43 * mm
 
     c.setFillColor(PINK)
     c.setFont("FinalSansBold", 8.2)
@@ -320,11 +320,12 @@ def make_source_disclosure_page(path: Path) -> None:
 
     heading("AI-assisted editorial work")
     disclosure = (
-        "OpenAI ChatGPT and Codex were used as editorial aids for language review, formatting, "
-        "citation-consistency checks, and PDF/website layout support. They were not treated as "
-        "scientific sources for battery claims. The research design, data, code, analysis, results, "
-        "interpretation, and final academic responsibility remain with Nayeem Faisal. All proposed "
-        "changes were subject to the author's critical review."
+        "All principal scholarly work, including the research design, data preparation, code, "
+        "implementation, analysis, results, interpretation, and original manuscript, was carried "
+        "out by Nayeem Faisal. OpenAI ChatGPT and Codex were used only as editorial aids for "
+        "language review, formatting, citation-consistency checks, and PDF/website layout support. "
+        "They were not treated as scientific sources or authors. Nayeem Faisal critically reviewed "
+        "every proposed change and retains final academic responsibility."
     )
     c.setFillColor(BLACK)
     c.setFont("FinalSerif", 9)
@@ -635,6 +636,17 @@ def add_headers_and_footers(doc: pymupdf.Document) -> None:
         )
         page.draw_line((71, 48), (PAGE_W - 65, 48), color=accent, width=1.05, overlay=True)
         page.insert_text((71, 824), "NAYEEM FAISAL", fontname="helv", fontsize=6.3, color=(0.35, 0.35, 0.35), overlay=True)
+        # A restrained authorship watermark in the footer keeps the print edition identifiable
+        # without competing with the academic content or obscuring body text.
+        page.insert_textbox(
+            pymupdf.Rect(205, 816, 390, 830),
+            "NF  /  ORIGINAL RESEARCH",
+            fontname="hebo",
+            fontsize=5.2,
+            color=(0.78, 0.36, 0.46),
+            align=pymupdf.TEXT_ALIGN_CENTER,
+            overlay=True,
+        )
         label = page_label(page_number)
         if label:
             page.insert_text((PAGE_W - 73, 824), label, fontname="helv", fontsize=6.3, color=(0.35, 0.35, 0.35), overlay=True)
@@ -669,16 +681,19 @@ def validate(doc: pymupdf.Document) -> None:
         "Submission manifest and running instructions",
     ]
     text = "\n".join(page.get_text() for page in doc)
-    found = [phrase for phrase in forbidden if phrase.lower() in text.lower()]
+    normalized_text = re.sub(r"\s+", " ", text).lower()
+    found = [phrase for phrase in forbidden if phrase.lower() in normalized_text]
     if found:
         raise RuntimeError(f"Editorial supplement text remains: {found}")
     required = [
         "Battery Remaining Useful Life (RUL) [Data set]",
         "The Synthetic Data Vault",
         "XGBoost: A scalable tree boosting system",
-        "OpenAI ChatGPT and Codex were used as editorial aids",
+        "All principal scholarly work",
+        "was carried out by Nayeem Faisal",
+        "OpenAI ChatGPT and Codex were used only as editorial aids",
     ]
-    missing = [phrase for phrase in required if phrase.lower() not in text.lower()]
+    missing = [phrase for phrase in required if phrase.lower() not in normalized_text]
     if missing:
         raise RuntimeError(f"Source or disclosure text is missing: {missing}")
 
