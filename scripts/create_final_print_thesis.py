@@ -219,6 +219,131 @@ def make_figure_page(path: Path, figures: list[Path]) -> None:
     c.save()
 
 
+def make_source_disclosure_page(path: Path) -> None:
+    """Create a source-note page for factual examples, core software, and AI assistance."""
+    c = canvas.Canvas(str(path), pagesize=A4, pageCompression=1)
+    c.setFillColor(colors.white)
+    c.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
+
+    left = 27 * mm
+    width = 156 * mm
+    y = PAGE_H - 48 * mm
+
+    c.setFillColor(PINK)
+    c.setFont("FinalSansBold", 8.2)
+    c.drawString(left, y, "SOURCE AND TOOL DISCLOSURE")
+    y -= 17
+    c.setFillColor(BLACK)
+    c.setFont("FinalSansBold", 17)
+    c.drawString(left, y, "Additional source notes and editorial disclosure")
+    y -= 22
+
+    intro = (
+        "These notes strengthen attribution for factual examples, dataset provenance, and the "
+        "principal software used in the study. They supplement the in-text citations and reference "
+        "list. Web sources were accessed on 15 November 2026."
+    )
+    c.setFillColor(GREY)
+    c.setFont("FinalSerif", 9.4)
+    for line in wrapped_lines(c, intro, "FinalSerif", 9.4, width):
+        c.drawString(left, y, line)
+        y -= 12
+
+    def heading(text: str) -> None:
+        nonlocal y
+        y -= 8
+        c.setFillColor(BLUE)
+        c.setFont("FinalSansBold", 10.2)
+        c.drawString(left, y, text)
+        y -= 15
+
+    def entry(text: str) -> None:
+        nonlocal y
+        c.setFillColor(BLACK)
+        c.setFont("FinalSerif", 8.25)
+        lines = wrapped_lines(c, text, "FinalSerif", 8.25, width - 5 * mm)
+        c.drawString(left, y, "-")
+        for line in lines:
+            c.drawString(left + 5 * mm, y, line)
+            y -= 10.2
+        y -= 3
+
+    heading("Authoritative sources for the safety examples and dataset")
+    entries = [
+        (
+            "NASA Jet Propulsion Laboratory. (2007). Report reveals likely causes of Mars "
+            "spacecraft loss. https://www.jpl.nasa.gov/news/report-reveals-likely-causes-of-mars-spacecraft-loss/"
+        ),
+        (
+            "National Transportation Safety Board. (2014). Auxiliary Power Unit Battery Fire, "
+            "Japan Airlines Boeing 787-8, Boston, Massachusetts, January 7, 2013 (AIR-14/01). "
+            "https://www.ntsb.gov/investigations/AccidentReports/Reports/AIR1401.pdf"
+        ),
+        (
+            "U.S. Consumer Product Safety Commission. (2016). Samsung recalls Galaxy Note7 "
+            "smartphones due to serious fire and burn hazards (Recall 16-266). "
+            "https://www.cpsc.gov/Recalls/2016/Samsung-Recalls-Galaxy-Note7-Smartphones"
+        ),
+        (
+            "Vinuales, I. (n.d.). Battery Remaining Useful Life (RUL) [Data set]. Kaggle. "
+            "https://www.kaggle.com/datasets/ignaciovinuales/battery-remaining-useful-life-rul"
+        ),
+    ]
+    for item in entries:
+        entry(item)
+
+    heading("Core software and method references")
+    software_entries = [
+        (
+            "Patki, N., Wedge, R., & Veeramachaneni, K. (2016). The Synthetic Data Vault. "
+            "2016 IEEE International Conference on Data Science and Advanced Analytics, 399-410. "
+            "https://doi.org/10.1109/DSAA.2016.49"
+        ),
+        (
+            "Chen, T., & Guestrin, C. (2016). XGBoost: A scalable tree boosting system. "
+            "Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery "
+            "and Data Mining, 785-794. https://doi.org/10.1145/2939672.2939785"
+        ),
+        (
+            "Abadi, M., Barham, P., Chen, J., et al. (2016). TensorFlow: A system for large-scale "
+            "machine learning. 12th USENIX Symposium on Operating Systems Design and Implementation, "
+            "265-283. https://www.usenix.org/conference/osdi16/technical-sessions/presentation/abadi"
+        ),
+        (
+            "Pedregosa, F., Varoquaux, G., Gramfort, A., et al. (2011). Scikit-learn: Machine "
+            "learning in Python. Journal of Machine Learning Research, 12, 2825-2830. "
+            "https://www.jmlr.org/papers/v12/pedregosa11a.html"
+        ),
+    ]
+    for item in software_entries:
+        entry(item)
+
+    heading("AI-assisted editorial work")
+    disclosure = (
+        "OpenAI ChatGPT and Codex were used as editorial aids for language review, formatting, "
+        "citation-consistency checks, and PDF/website layout support. They were not treated as "
+        "scientific sources for battery claims. The research design, data, code, analysis, results, "
+        "interpretation, and final academic responsibility remain with Nayeem Faisal. All proposed "
+        "changes were subject to the author's critical review."
+    )
+    c.setFillColor(BLACK)
+    c.setFont("FinalSerif", 9)
+    for line in wrapped_lines(c, disclosure, "FinalSerif", 9, width):
+        c.drawString(left, y, line)
+        y -= 11.2
+    y -= 7
+    c.setFont("FinalSerif", 8.25)
+    ai_reference = (
+        "OpenAI. (2026). ChatGPT and Codex [Large language model and coding assistant]. "
+        "https://chatgpt.com/ and https://openai.com/codex/ (accessed 15 November 2026)."
+    )
+    for line in wrapped_lines(c, ai_reference, "FinalSerif", 8.25, width):
+        c.drawString(left, y, line)
+        y -= 10.2
+
+    c.save()
+
+
 def replace_page(doc: pymupdf.Document, page_number: int, replacement: Path) -> None:
     repl = pymupdf.open(replacement)
     index = page_number - 1
@@ -282,6 +407,8 @@ def section_name(page_number: int) -> str:
         return "MODELING, EVALUATION, AND CONCLUSION"
     if 73 <= page_number <= 85:
         return "REFERENCES"
+    if page_number == 86:
+        return "SOURCE AND TOOL DISCLOSURE"
     return "AUTHOR'S DECLARATION"
 
 
@@ -301,7 +428,7 @@ def page_label(page_number: int) -> str:
     roman = {2: "ii", 3: "iii", 4: "iv", 5: "v", 6: "vi", 7: "vii", 8: "viii"}
     if page_number in roman:
         return roman[page_number]
-    if 9 <= page_number <= 85:
+    if 9 <= page_number <= 86:
         return str(page_number - 8)
     return ""
 
@@ -513,9 +640,26 @@ def add_headers_and_footers(doc: pymupdf.Document) -> None:
             page.insert_text((PAGE_W - 73, 824), label, fontname="helv", fontsize=6.3, color=(0.35, 0.35, 0.35), overlay=True)
 
 
+def add_declaration_cross_reference(doc: pymupdf.Document) -> None:
+    page = doc[-1]
+    note = (
+        "This declaration is to be read together with the source and AI-assistance disclosure "
+        "on the preceding page."
+    )
+    page.insert_textbox(
+        pymupdf.Rect(58, 454, 537, 481),
+        note,
+        fontname="heit",
+        fontsize=7.4,
+        color=(0.35, 0.35, 0.35),
+        align=pymupdf.TEXT_ALIGN_LEFT,
+        overlay=True,
+    )
+
+
 def validate(doc: pymupdf.Document) -> None:
-    if len(doc) != 86:
-        raise RuntimeError(f"Expected 86 pages, found {len(doc)}")
+    if len(doc) != 87:
+        raise RuntimeError(f"Expected 87 pages, found {len(doc)}")
     forbidden = [
         "STRUCTURED RESEARCH OVERVIEW",
         "SUPERVISOR-REVIEW SUPPLEMENT",
@@ -528,6 +672,15 @@ def validate(doc: pymupdf.Document) -> None:
     found = [phrase for phrase in forbidden if phrase.lower() in text.lower()]
     if found:
         raise RuntimeError(f"Editorial supplement text remains: {found}")
+    required = [
+        "Battery Remaining Useful Life (RUL) [Data set]",
+        "The Synthetic Data Vault",
+        "XGBoost: A scalable tree boosting system",
+        "OpenAI ChatGPT and Codex were used as editorial aids",
+    ]
+    missing = [phrase for phrase in required if phrase.lower() not in text.lower()]
+    if missing:
+        raise RuntimeError(f"Source or disclosure text is missing: {missing}")
 
 
 def main() -> None:
@@ -559,13 +712,20 @@ def main() -> None:
     repair_figure_24_pagination(doc, source)
     center_table_regions(doc, source)
 
+    disclosure_path = TMP / "source-and-tool-disclosure.pdf"
+    make_source_disclosure_page(disclosure_path)
+    disclosure_doc = pymupdf.open(disclosure_path)
+    doc.insert_pdf(disclosure_doc, from_page=0, to_page=0, start_at=85)
+    disclosure_doc.close()
+
     # Improve every table without changing any study, method, domain, finding, or value.
     add_table_guides(doc)
     add_table_readability_styles(doc)
     colourize_structural_text(doc)
     add_headers_and_footers(doc)
+    add_declaration_cross_reference(doc)
     # Remove the obsolete page number embedded in the original declaration artwork.
-    doc[85].draw_rect(pymupdf.Rect(515, 775, 555, 806), color=(1, 1, 1), fill=(1, 1, 1), overlay=True)
+    doc[86].draw_rect(pymupdf.Rect(515, 775, 555, 806), color=(1, 1, 1), fill=(1, 1, 1), overlay=True)
 
     metadata = dict(source.metadata or {})
     metadata.update(
@@ -580,6 +740,8 @@ def main() -> None:
     )
     doc.set_metadata(metadata)
     if toc:
+        toc.append([1, "Source notes and AI-assistance disclosure", 86])
+        toc.append([1, "Author's Declaration", 87])
         doc.set_toc(toc)
     validate(doc)
     doc.save(OUTPUT, garbage=4, deflate=True, clean=True)

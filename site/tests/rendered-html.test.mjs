@@ -33,7 +33,7 @@ test("keeps the thesis and software routes available", async () => {
   assert.equal(hub.status, 200);
   const thesisHtml = await thesis.text();
   assert.match(thesisHtml, /Development and Evaluation of Machine Learning Models/);
-  assert.match(thesisHtml, /86/);
+  assert.match(thesisHtml, /87-page/);
   assert.match(thesisHtml, /KNOWLEDGE INDEX/);
   assert.match(thesisHtml, /One connected evidence chain/);
   assert.match(thesisHtml, /ROADMAP TO STRONGER ACADEMIC VALIDATION/);

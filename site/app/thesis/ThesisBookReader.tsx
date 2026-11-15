@@ -199,7 +199,7 @@ export default function ThesisBookReader() {
         <button className="book-closed" type="button" onClick={() => setOpen(true)} aria-label="Open the thesis book">
           <span className="book-cover-spine" aria-hidden="true" />
           <img src="/thesis-book-cover.png" alt="White hardcover of Nayeem Faisal's bachelor thesis" />
-          <span className="book-open-cue"><b>OPEN THE BOOK</b><small>Interactive 86-page print-layout edition</small></span>
+          <span className="book-open-cue"><b>OPEN THE BOOK</b><small>Interactive 87-page print-layout edition</small></span>
         </button>
       ) : (
         <>
