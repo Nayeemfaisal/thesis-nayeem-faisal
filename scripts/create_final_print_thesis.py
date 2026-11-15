@@ -31,8 +31,7 @@ PROGRAM = "International Information Systems"
 DEGREE = "Bachelor of Science (B.Sc.)"
 FACULTY = "Faculty of Computer Science"
 ENROLMENT = "2224981"
-FIRST_SUPERVISOR = "Prof. Dr. rer. nat. Jana Görmer-Redding"
-SECOND_SUPERVISOR = "Prof. Dr. Fiorentino Valerio Conte"
+SUPERVISOR = "Prof. Dr. Fiorentino Valerio Conte"
 SUBMISSION_DATE = "27 October 2026"
 
 PAGE_W, PAGE_H = A4
@@ -117,8 +116,7 @@ def make_cover(path: Path) -> None:
     c.setLineWidth(0.7)
     c.line(left, table_top, left + content_width, table_top)
     rows = [
-        ("First Supervisor", FIRST_SUPERVISOR),
-        ("Second Supervisor", SECOND_SUPERVISOR),
+        ("Supervisor", SUPERVISOR),
         ("Submitted on", SUBMISSION_DATE),
         ("Non-Disclosure Agreement", "No"),
     ]

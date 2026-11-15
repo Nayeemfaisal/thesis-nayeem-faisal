@@ -1,6 +1,6 @@
 # Development and Evaluation of Machine Learning Models for Lithium-Ion Battery Remaining Useful Life Prediction
 
-Bachelor's thesis by **Nayeem Faisal**, dated 27 October 2026 at Technische Hochschule Augsburg. The current final-review candidate lists Prof. Dr. rer. nat. Jana Görmer-Redding as first supervisor and Prof. Dr. Fiorentino Valerio Conte as second supervisor.
+Bachelor's thesis by **Nayeem Faisal**, dated 27 October 2026 at Technische Hochschule Augsburg. The current final-review candidate lists Prof. Dr. Fiorentino Valerio Conte as the sole, main, and final supervisor.
 
 ## Research focus
 
@@ -81,4 +81,4 @@ Or run **Verify website** from VS Code.
 
 ## Authorship
 
-Nayeem Faisal is named as the thesis author. The website is a navigable companion, and the assembled final-review PDF must be approved by the author and supervisors before it is treated as a submission edition.
+Nayeem Faisal is named as the thesis author. The website is a navigable companion, and the assembled final-review PDF must be approved by the author and supervisor before it is treated as a submission edition.

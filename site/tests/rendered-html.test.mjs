@@ -42,8 +42,9 @@ test("keeps the thesis and software routes available", async () => {
   assert.match(thesisHtml, /Read it like a book/);
   assert.match(thesisHtml, /thesis-book-cover\.png/);
   assert.match(thesisHtml, /Prof. Dr. Fiorentino Valerio Conte/);
-  assert.match(thesisHtml, /Prof. Dr. rer. nat. Jana Görmer-Redding/);
-  assert.match(thesisHtml, /prof-jana-goermer-redding\.webp/);
+  assert.doesNotMatch(thesisHtml, /Jana Görmer-Redding/);
+  assert.doesNotMatch(thesisHtml, /prof-jana-goermer-redding\.webp/);
+  assert.match(thesisHtml, /SOLE &amp; MAIN SUPERVISOR/);
   assert.match(thesisHtml, /nayeem-faisal-thesis-portrait-2026\.png/);
   assert.match(thesisHtml, /Prof. Dr. Stephan Zimmermann/);
   assert.match(thesisHtml, /WHAT THE RESEARCH FOUND/);

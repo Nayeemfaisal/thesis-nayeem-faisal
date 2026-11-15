@@ -32,8 +32,7 @@ ENROLMENT = "2224981"
 PROGRAM = "International Information Systems"
 DEGREE = "Bachelor of Science (B.Sc.)"
 FACULTY = "Faculty of Computer Science"
-FIRST_SUPERVISOR = "Prof. Dr. rer. nat. Jana Görmer-Redding"
-SECOND_SUPERVISOR = "Prof. Dr. Fiorentino Valerio Conte"
+SUPERVISOR = "Prof. Dr. Fiorentino Valerio Conte"
 SUBMISSION_DATE = "27 October 2026"
 
 THA_PINK = colors.HexColor("#FF0350")
@@ -146,8 +145,7 @@ def cover_pdf() -> PdfReader:
         c.line(left, table_top + 57, left + left_width, table_top + 57)
         c.line(left, table_top - 18, left + left_width, table_top - 18)
         rows = [
-            ("First Supervisor", FIRST_SUPERVISOR),
-            ("Second Supervisor", SECOND_SUPERVISOR),
+            ("Supervisor", SUPERVISOR),
             ("Submitted on", SUBMISSION_DATE),
             ("Non-Disclosure Agreement", "No"),
         ]
@@ -515,7 +513,7 @@ def main() -> None:
     writer.add_metadata({
         "/Title": TITLE,
         "/Author": AUTHOR,
-        "/Subject": "THA final-review candidate with two supervisors, official title-page assets, colour hierarchy, polished literature table, and verified figure layout",
+        "/Subject": "THA final-review candidate with Prof. Dr. Fiorentino Valerio Conte as sole supervisor, official title-page assets, colour hierarchy, polished literature table, and verified figure layout",
         "/Keywords": "lithium-ion battery, RUL, LSTM, XGBoost, THA, thesis, annex",
         "/Creator": "THA print layout assembly",
     })
