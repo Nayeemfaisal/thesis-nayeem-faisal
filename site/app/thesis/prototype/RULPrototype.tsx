@@ -67,7 +67,7 @@ type Analysis = {
   validation: { rmse: number; mae: number; r2: number } | null;
 };
 
-const MAX_ROWS = 50_000;
+const MAX_ROWS = 100_000;
 
 function normalized(value: string) {
   return value
@@ -421,7 +421,7 @@ export default function RULPrototype() {
         >
           <input ref={inputRef} type="file" accept=".csv,text/csv" onChange={onFileChange} hidden />
           <div className="rul-upload-icon" aria-hidden="true"><i/><i/><i/></div>
-          <div><strong>{working ? "Analysing the battery record…" : "Drop your battery CSV here"}</strong><p>or choose a file · maximum 20 MB · up to 50,000 rows</p></div>
+          <div><strong>{working ? "Analysing the battery record…" : "Drop your battery CSV here"}</strong><p>or choose a file · maximum 20 MB · up to 100,000 rows</p></div>
           <button type="button" disabled={!model || working}>{working ? "Working" : "Choose CSV"}</button>
         </div>
         {error && <p className="rul-error" role="alert">{error}</p>}

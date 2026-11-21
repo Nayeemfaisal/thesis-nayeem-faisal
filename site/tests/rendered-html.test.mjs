@@ -62,6 +62,7 @@ test("renders the battery RUL CSV prototype", async () => {
   assert.match(html, /Battery RUL Lab/);
   assert.match(html, /Upload\. Inspect\. Estimate\./);
   assert.match(html, /Drop your battery CSV here/);
+  assert.match(html, /up to 100,000 rows/);
   assert.match(html, /Processing[\s\S]*In your browser/);
   assert.match(html, /Research prototype/);
   assert.match(html, /not a certified battery-management system/i);
