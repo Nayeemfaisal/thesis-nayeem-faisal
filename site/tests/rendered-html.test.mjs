@@ -60,6 +60,8 @@ test("renders the battery RUL CSV prototype", async () => {
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /Battery RUL Lab/);
+  assert.match(html, /battery-rul-lab-logo\.png/);
+  assert.match(html, /100,000-row analysis capacity/);
   assert.match(html, /Upload\. Inspect\. Estimate\./);
   assert.match(html, /Drop your battery CSV here/);
   assert.match(html, /up to 100,000 rows/);

@@ -387,13 +387,14 @@ export default function RULPrototype() {
   return (
     <main className="rul-lab">
       <header className="rul-nav">
-        <a className="rul-brand" href="/thesis"><b>NF</b><span>BATTERY RUL LAB</span></a>
+        <a className="rul-brand" href="/thesis/prototype"><img src="/battery-rul-lab-logo.png" alt=""/><span><b>BATTERY RUL LAB</b><small>Research prototype by Nayeem Faisal</small></span></a>
         <nav aria-label="Prototype navigation"><a href="#analyser">Analyser</a><a href="#method">Method</a><a href="#limits">Limits</a></nav>
         <a className="rul-back" href="/thesis">Thesis home</a>
       </header>
 
       <section className="rul-hero">
         <div className="rul-hero-copy">
+          <div className="rul-hero-lockup"><img src="/battery-rul-lab-logo.png" alt="Battery RUL Lab emblem"/><span>100,000-row analysis capacity</span></div>
           <p className="rul-kicker">INTERACTIVE RESEARCH PROTOTYPE · NAYEEM FAISAL</p>
           <h1>Turn battery-cycle CSV data into a <em>RUL health report.</em></h1>
           <p>Upload a compatible CSV to inspect data quality, estimate remaining useful life, visualise degradation, classify maintenance risk, and export an analysed dataset.</p>
