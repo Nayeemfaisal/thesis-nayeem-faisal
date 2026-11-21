@@ -54,3 +54,15 @@ test("keeps the thesis and software routes available", async () => {
   assert.match(thesisHtml, /actual-vs-predicted-rul\.png/);
   assert.match(await hub.text(), /THA Q&amp;A Hub/);
 });
+
+test("renders the battery RUL CSV prototype", async () => {
+  const response = await render("/thesis/prototype");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /Battery RUL Lab/);
+  assert.match(html, /Upload\. Inspect\. Estimate\./);
+  assert.match(html, /Drop your battery CSV here/);
+  assert.match(html, /Processing[\s\S]*In your browser/);
+  assert.match(html, /Research prototype/);
+  assert.match(html, /not a certified battery-management system/i);
+});
