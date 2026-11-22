@@ -51,13 +51,28 @@ type PredictionRow = {
   risk: "Healthy" | "Monitor" | "Plan service" | "Critical";
 };
 
+type ColumnProfile = {
+  name: string;
+  kind: "numeric" | "timestamp" | "text";
+  complete: number;
+  unique: number;
+  min: number | null;
+  max: number | null;
+  mean: number | null;
+};
+
 type Analysis = {
+  mode: "rul" | "telemetry" | "generic";
   fileName: string;
   rows: number;
   columns: number;
+  rawRows: ParsedRow[];
+  profiles: ColumnProfile[];
+  plotColumn: string | null;
+  plotValues: number[];
   matched: Record<string, string>;
   predictions: PredictionRow[];
-  latest: PredictionRow;
+  latest: PredictionRow | null;
   inputFitness: number;
   completeness: number;
   rangeFitness: number;
@@ -109,6 +124,32 @@ function parseCSV(text: string): string[][] {
   row.push(value.trim());
   if (row.some((cell) => cell !== "")) rows.push(row);
   return rows;
+}
+
+function profileColumns(headers: string[], rows: ParsedRow[]): ColumnProfile[] {
+  return headers.map((name) => {
+    const present = rows.map((row) => row[name]).filter((value) => value !== undefined && value !== "");
+    const numeric = present.map(Number).filter(Number.isFinite);
+    const timestampCount = present.reduce((count, value) => count + (Number.isFinite(Date.parse(value)) ? 1 : 0), 0);
+    const numericShare = numeric.length / Math.max(1, present.length);
+    const timestampShare = timestampCount / Math.max(1, present.length);
+    const kind: ColumnProfile["kind"] = numericShare >= 0.6 ? "numeric" : timestampShare >= 0.6 ? "timestamp" : "text";
+    return {
+      name,
+      kind,
+      complete: present.length / Math.max(1, rows.length),
+      unique: new Set(present).size,
+      min: kind === "numeric" && numeric.length ? numeric.reduce((value, item) => Math.min(value, item), Number.POSITIVE_INFINITY) : null,
+      max: kind === "numeric" && numeric.length ? numeric.reduce((value, item) => Math.max(value, item), Number.NEGATIVE_INFINITY) : null,
+      mean: kind === "numeric" && numeric.length ? numeric.reduce((sum, value) => sum + value, 0) / numeric.length : null,
+    };
+  });
+}
+
+function preferredPlotColumn(profiles: ColumnProfile[]) {
+  const numeric = profiles.filter((profile) => profile.kind === "numeric");
+  const priorities = ["power", "voltage", "current", "temperature", "temp", "capacity", "rul", "cycle"];
+  return priorities.map((term) => numeric.find((profile) => normalized(profile.name).includes(term))).find(Boolean) ?? numeric[0] ?? null;
 }
 
 function findNode(node: TreeNode, id: number): TreeNode | undefined {
@@ -218,6 +259,11 @@ export default function RULPrototype() {
       const rawRows = matrix.slice(1, MAX_ROWS + 1).map((cells) =>
         Object.fromEntries(headers.map((header, index) => [header, cells[index] ?? ""])),
       );
+      const profiles = profileColumns(headers, rawRows);
+      const plotProfile = preferredPlotColumn(profiles);
+      const plotValues = plotProfile
+        ? rawRows.map((row) => Number(row[plotProfile.name])).filter(Number.isFinite)
+        : [];
 
       const headerLookup = new Map(headers.map((header) => [normalized(header), header]));
       const matched: Record<string, string> = {};
@@ -226,8 +272,37 @@ export default function RULPrototype() {
         const found = candidates.map(normalized).map((candidate) => headerLookup.get(candidate)).find(Boolean);
         if (found) matched[canonical] = found;
       }
-      if (!matched.Cycle_Index && !matched.RUL) {
-        throw new Error("No cycle index or RUL column was recognised. Use the sample CSV to see the supported schema.");
+      const matchedFeatures = Object.keys(matched).filter((name) => model.features.includes(name)).length;
+      const canRunRul = Boolean(matched.Cycle_Index && matchedFeatures >= 3);
+      if (!canRunRul) {
+        const telemetryTerms = ["time", "timestamp", "voltage", "current", "temperature", "temp", "power", "capacity", "step"];
+        const telemetryMatches = headers.filter((header) => telemetryTerms.some((term) => normalized(header).includes(term))).length;
+        const missingCells = profiles.reduce((sum, profile) => sum + (1 - profile.complete), 0);
+        const warnings: string[] = [];
+        if (matrix.length - 1 > MAX_ROWS) warnings.push(`Only the first ${MAX_ROWS.toLocaleString()} rows were analysed.`);
+        if (!plotProfile) warnings.push("No predominantly numeric column was found, so a signal chart cannot be drawn.");
+        warnings.push("RUL inference was not run because this file does not contain enough thesis-model features.");
+        setAnalysis({
+          mode: telemetryMatches >= 2 ? "telemetry" : "generic",
+          fileName: file.name,
+          rows: rawRows.length,
+          columns: headers.length,
+          rawRows,
+          profiles,
+          plotColumn: plotProfile?.name ?? null,
+          plotValues,
+          matched,
+          predictions: [],
+          latest: null,
+          inputFitness: 0,
+          completeness: Math.max(0, 1 - missingCells / Math.max(1, profiles.length)),
+          rangeFitness: 0,
+          duplicates: 0,
+          monotonicViolations: 0,
+          warnings,
+          validation: null,
+        });
+        return;
       }
 
       let missingValues = 0;
@@ -287,9 +362,14 @@ export default function RULPrototype() {
       if (!matched.RUL) warnings.push("No RUL target was supplied, so uploaded-file accuracy metrics cannot be calculated.");
 
       setAnalysis({
+        mode: "rul",
         fileName: file.name,
         rows: predictions.length,
         columns: headers.length,
+        rawRows,
+        profiles,
+        plotColumn: plotProfile?.name ?? null,
+        plotValues,
         matched,
         predictions,
         latest: predictions[predictions.length - 1],
@@ -321,7 +401,7 @@ export default function RULPrototype() {
   }
 
   const chart = useMemo(() => {
-    if (!analysis) return null;
+    if (!analysis || analysis.mode !== "rul") return null;
     const sampled = analysis.predictions.filter((_, index, rows) => index % Math.max(1, Math.ceil(rows.length / 350)) === 0);
     const predicted = sampled.map((row) => row.predicted);
     const actual = sampled.map((row) => row.actual).filter((value): value is number => value !== null);
@@ -336,6 +416,14 @@ export default function RULPrototype() {
       firstCycle: sampled[0]?.cycle ?? 0,
       lastCycle: sampled[sampled.length - 1]?.cycle ?? 0,
     };
+  }, [analysis]);
+
+  const genericChart = useMemo(() => {
+    if (!analysis || analysis.mode === "rul" || !analysis.plotValues.length) return null;
+    const sampled = analysis.plotValues.filter((_, index, values) => index % Math.max(1, Math.ceil(values.length / 350)) === 0);
+    const min = sampled.reduce((value, item) => Math.min(value, item), Number.POSITIVE_INFINITY);
+    const max = sampled.reduce((value, item) => Math.max(value, item), Number.NEGATIVE_INFINITY);
+    return { path: chartPath(sampled, 900, 280, min, max), min, max };
   }, [analysis]);
 
   function exportAnalysedCSV() {
@@ -358,14 +446,18 @@ export default function RULPrototype() {
   function exportReport() {
     if (!analysis || !model) return;
     download(
-      `${analysis.fileName.replace(/\.csv$/i, "")}-rul-report.json`,
+      `${analysis.fileName.replace(/\.csv$/i, "")}-${analysis.mode === "rul" ? "rul" : "data-quality"}-report.json`,
       JSON.stringify(
         {
           generated: new Date().toISOString(),
           prototype: model.name,
           modelVersion: model.version,
           file: analysis.fileName,
+          analysisMode: analysis.mode,
           rows: analysis.rows,
+          columns: analysis.columns,
+          columnProfiles: analysis.profiles,
+          previewSignal: analysis.plotColumn,
           matchedColumns: analysis.matched,
           inputFitness: analysis.inputFitness,
           latestEstimate: analysis.latest,
@@ -397,7 +489,7 @@ export default function RULPrototype() {
           <div className="rul-hero-lockup"><img src="/battery-rul-lab-logo.png" alt="Battery RUL Lab emblem"/><span>100,000-row analysis capacity</span></div>
           <p className="rul-kicker">INTERACTIVE RESEARCH PROTOTYPE · NAYEEM FAISAL</p>
           <h1>Turn battery-cycle CSV data into a <em>RUL health report.</em></h1>
-          <p>Upload a compatible CSV to inspect data quality, estimate remaining useful life, visualise degradation, classify maintenance risk, and export an analysed dataset.</p>
+          <p>Upload any CSV for structural and signal analysis. Files matching the thesis battery schema also receive RUL estimation, degradation visualisation, maintenance-risk classification, and exportable results.</p>
           <div className="rul-hero-actions"><a href="#analyser">Open analyser</a><a href="/data/battery-rul-sample.csv" download>Download sample CSV</a></div>
         </div>
         <aside className="rul-model-card">
@@ -409,7 +501,7 @@ export default function RULPrototype() {
       </section>
 
       <section className="rul-analyser" id="analyser">
-        <header><p className="rul-kicker">CSV ANALYSER</p><h2>Upload. Inspect. Estimate.</h2><p>Best results use the thesis column names. Missing optional measurements are median-filled and reduce the input-fitness score.</p></header>
+        <header><p className="rul-kicker">UNIVERSAL CSV ANALYSER</p><h2>Upload. Inspect. Test.</h2><p>Every CSV receives a data-quality profile. The thesis RUL model runs only when enough compatible battery features are present.</p></header>
         <div
           className={`rul-dropzone ${dragging ? "is-dragging" : ""} ${working ? "is-working" : ""}`}
           onDragOver={(event) => { event.preventDefault(); setDragging(true); }}
@@ -426,10 +518,10 @@ export default function RULPrototype() {
           <button type="button" disabled={!model || working}>{working ? "Working" : "Choose CSV"}</button>
         </div>
         {error && <p className="rul-error" role="alert">{error}</p>}
-        <div className="rul-schema"><span>Expected core schema</span>{model?.features.map((feature) => <code key={feature}>{feature}</code>)}</div>
+        <div className="rul-schema"><span>Optional RUL prediction schema</span>{model?.features.map((feature) => <code key={feature}>{feature}</code>)}</div>
       </section>
 
-      {analysis && model && chart && <>
+      {analysis && analysis.mode === "rul" && analysis.latest && model && chart && <>
         <section className="rul-results" aria-live="polite">
           <header><div><p className="rul-kicker">LATEST CYCLE ESTIMATE</p><h2>{analysis.fileName}</h2></div><span className={`rul-risk rul-risk-${analysis.latest.risk.toLowerCase().replace(" ", "-")}`}>{analysis.latest.risk}</span></header>
           <div className="rul-result-grid">
@@ -469,9 +561,19 @@ export default function RULPrototype() {
         </section>
       </>}
 
+      {analysis && analysis.mode !== "rul" && <section className="rul-universal" aria-live="polite">
+        <header><div><p className="rul-kicker">{analysis.mode === "telemetry" ? "TELEMETRY DATASET" : "UNIVERSAL CSV PROFILE"}</p><h2>{analysis.fileName}</h2></div><span>PROFILE READY</span></header>
+        <div className="rul-universal-stats"><article><span>Rows analysed</span><strong>{analysis.rows.toLocaleString()}</strong></article><article><span>Columns</span><strong>{analysis.columns}</strong></article><article><span>Numeric signals</span><strong>{analysis.profiles.filter((profile) => profile.kind === "numeric").length}</strong></article><article><span>Data completeness</span><strong>{(analysis.completeness * 100).toFixed(1)}%</strong></article></div>
+        <div className="rul-mode-note"><b>SAFE ANALYSIS MODE</b><p>This CSV does not match enough thesis-model inputs for a defensible RUL estimate. The prototype has still profiled its structure, signal ranges, completeness and cardinality without inventing missing battery features.</p></div>
+        {genericChart && <div className="rul-generic-chart"><div><p className="rul-kicker">SIGNAL PREVIEW</p><h3>{analysis.plotColumn}</h3></div><div className="rul-chart-wrap"><div className="rul-y-labels"><span>{genericChart.max.toFixed(2)}</span><span>{((genericChart.max + genericChart.min) / 2).toFixed(2)}</span><span>{genericChart.min.toFixed(2)}</span></div><svg className="rul-chart" viewBox="0 0 900 280" role="img" aria-label={`${analysis.plotColumn} signal across uploaded rows`}><path className="rul-grid-line" d="M0 1H900M0 140H900M0 279H900"/><path className="rul-predicted-line" d={genericChart.path}/></svg><div className="rul-x-labels"><span>First row</span><span>Last row</span></div></div></div>}
+        <div className="rul-profile-table"><table><thead><tr><th>Column</th><th>Detected type</th><th>Complete</th><th>Unique</th><th>Minimum</th><th>Maximum</th><th>Mean</th></tr></thead><tbody>{analysis.profiles.map((profile) => <tr key={profile.name}><td>{profile.name}</td><td>{profile.kind}</td><td>{(profile.complete * 100).toFixed(1)}%</td><td>{profile.unique.toLocaleString()}</td><td>{profile.min === null ? "—" : profile.min.toFixed(3)}</td><td>{profile.max === null ? "—" : profile.max.toFixed(3)}</td><td>{profile.mean === null ? "—" : profile.mean.toFixed(3)}</td></tr>)}</tbody></table></div>
+        {analysis.warnings.length > 0 && <ul className="rul-generic-warnings">{analysis.warnings.map((warning) => <li key={warning}>{warning}</li>)}</ul>}
+        <div className="rul-export"><button onClick={exportReport}>Download data-quality report</button></div>
+      </section>}
+
       <section className="rul-method" id="method">
         <header><p className="rul-kicker">HOW THE PROTOTYPE WORKS</p><h2>A transparent path from CSV to estimate.</h2></header>
-        <ol><li><b>01</b><h3>Recognise</h3><p>Column names are matched to the thesis schema using documented aliases.</p></li><li><b>02</b><h3>Validate</h3><p>Missing values, duplicates, monotonicity and training-range compatibility are checked.</p></li><li><b>03</b><h3>Infer</h3><p>The deployed XGBoost trees estimate RUL for each row entirely in the browser.</p></li><li><b>04</b><h3>Interpret</h3><p>RUL is converted into a health indicator and non-binding maintenance category.</p></li></ol>
+        <ol><li><b>01</b><h3>Recognise</h3><p>Columns are classified as numeric, timestamp, or text and matched to known battery and telemetry aliases.</p></li><li><b>02</b><h3>Validate</h3><p>Completeness, uniqueness, signal ranges, duplicates, monotonicity, and model compatibility are checked.</p></li><li><b>03</b><h3>Infer safely</h3><p>XGBoost RUL inference runs only when the CSV contains enough thesis-model features; other files stay in profiling mode.</p></li><li><b>04</b><h3>Interpret</h3><p>The prototype presents either a battery-health report or a transparent universal CSV quality report.</p></li></ol>
         <div className="rul-importance"><div><p className="rul-kicker">MODEL SIGNAL</p><h3>Relative feature importance</h3><p>Gain importance from the deployed prototype model. High importance is not proof of physical causation.</p></div><div>{topFeatures.map(([feature, value]) => <div key={feature}><span>{feature}</span><i><b style={{ width: `${Math.max(3, value * 100)}%` }}/></i><strong>{(value * 100).toFixed(1)}%</strong></div>)}</div></div>
       </section>
 
