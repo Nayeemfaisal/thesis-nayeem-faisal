@@ -61,12 +61,12 @@ test("renders the battery RUL CSV prototype", async () => {
   const html = await response.text();
   assert.match(html, /Battery RUL Lab/);
   assert.match(html, /battery-rul-lab-logo\.png/);
-  assert.match(html, /100,000-row analysis capacity/);
+  assert.match(html, /512 GB file acceptance · 100,000-row analysis/);
   assert.match(html, /Upload\. Inspect\. Test\./);
   assert.match(html, /UNIVERSAL CSV ANALYSER/);
   assert.match(html, /Every CSV receives a data-quality profile/);
-  assert.match(html, /Drop your battery CSV here/);
-  assert.match(html, /up to 100,000 rows/);
+  assert.match(html, /Drop your CSV dataset here/);
+  assert.match(html, /maximum 512 GB · chunked analysis of up to 100,000 rows/);
   assert.match(html, /Processing[\s\S]*In your browser/);
   assert.match(html, /Research prototype/);
   assert.match(html, /not a certified battery-management system/i);

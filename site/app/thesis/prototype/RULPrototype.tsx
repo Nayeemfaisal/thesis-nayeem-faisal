@@ -83,6 +83,73 @@ type Analysis = {
 };
 
 const MAX_ROWS = 100_000;
+const MAX_FILE_BYTES = 512 * 1024 ** 3;
+
+async function readCSVSample(file: File, maxRows: number) {
+  const reader = file.stream().getReader();
+  const decoder = new TextDecoder();
+  const rows: string[][] = [];
+  let row: string[] = [];
+  let value = "";
+  let quoted = false;
+  let pendingQuote = false;
+  let skipLineFeed = false;
+  let bytesRead = 0;
+  let sampled = false;
+
+  const finishRow = () => {
+    row.push(value.trim());
+    if (row.some((cell) => cell !== "")) rows.push(row);
+    row = [];
+    value = "";
+  };
+
+  outer: while (rows.length < maxRows + 1) {
+    const chunk = await reader.read();
+    if (chunk.done) break;
+    bytesRead += chunk.value.byteLength;
+    const text = decoder.decode(chunk.value, { stream: true });
+    for (let index = 0; index < text.length; index += 1) {
+      const char = text[index];
+      if (skipLineFeed) {
+        skipLineFeed = false;
+        if (char === "\n") continue;
+      }
+      if (pendingQuote) {
+        pendingQuote = false;
+        if (char === '"') {
+          value += '"';
+          continue;
+        }
+        quoted = false;
+      }
+      if (char === '"') {
+        if (quoted) pendingQuote = true;
+        else quoted = true;
+      } else if (char === "," && !quoted) {
+        row.push(value.trim());
+        value = "";
+      } else if ((char === "\n" || char === "\r") && !quoted) {
+        if (char === "\r") skipLineFeed = true;
+        finishRow();
+        if (rows.length >= maxRows + 1) {
+          sampled = bytesRead < file.size || index < text.length - 1;
+          break outer;
+        }
+      } else {
+        value += char;
+      }
+    }
+  }
+
+  if (!sampled) {
+    value += decoder.decode();
+    if (value || row.length) finishRow();
+  } else {
+    await reader.cancel();
+  }
+  return { matrix: rows.slice(0, maxRows + 1), sampled, bytesRead };
+}
 
 function normalized(value: string) {
   return value
@@ -92,38 +159,6 @@ function normalized(value: string) {
     .replace(/[^a-z0-9]+/g, " ")
     .replace(/\s+/g, " ")
     .trim();
-}
-
-function parseCSV(text: string): string[][] {
-  const rows: string[][] = [];
-  let row: string[] = [];
-  let value = "";
-  let quoted = false;
-  for (let index = 0; index < text.length; index += 1) {
-    const char = text[index];
-    if (char === '"') {
-      if (quoted && text[index + 1] === '"') {
-        value += '"';
-        index += 1;
-      } else {
-        quoted = !quoted;
-      }
-    } else if (char === "," && !quoted) {
-      row.push(value.trim());
-      value = "";
-    } else if ((char === "\n" || char === "\r") && !quoted) {
-      if (char === "\r" && text[index + 1] === "\n") index += 1;
-      row.push(value.trim());
-      if (row.some((cell) => cell !== "")) rows.push(row);
-      row = [];
-      value = "";
-    } else {
-      value += char;
-    }
-  }
-  row.push(value.trim());
-  if (row.some((cell) => cell !== "")) rows.push(row);
-  return rows;
 }
 
 function profileColumns(headers: string[], rows: ParsedRow[]): ColumnProfile[] {
@@ -252,8 +287,8 @@ export default function RULPrototype() {
     await new Promise((resolve) => window.setTimeout(resolve, 20));
     try {
       if (!file.name.toLowerCase().endsWith(".csv")) throw new Error("Please choose a CSV file.");
-      if (file.size > 20 * 1024 * 1024) throw new Error("The CSV is larger than the 20 MB browser limit.");
-      const matrix = parseCSV(await file.text());
+      if (file.size > MAX_FILE_BYTES) throw new Error("The CSV is larger than the 512 GB upload limit.");
+      const { matrix, sampled } = await readCSVSample(file, MAX_ROWS);
       if (matrix.length < 2) throw new Error("The CSV needs a header and at least one data row.");
       const headers = matrix[0].map((header, index) => header || `Column ${index + 1}`);
       const rawRows = matrix.slice(1, MAX_ROWS + 1).map((cells) =>
@@ -279,7 +314,7 @@ export default function RULPrototype() {
         const telemetryMatches = headers.filter((header) => telemetryTerms.some((term) => normalized(header).includes(term))).length;
         const missingCells = profiles.reduce((sum, profile) => sum + (1 - profile.complete), 0);
         const warnings: string[] = [];
-        if (matrix.length - 1 > MAX_ROWS) warnings.push(`Only the first ${MAX_ROWS.toLocaleString()} rows were analysed.`);
+        if (sampled) warnings.push(`This large file was read in chunks; the first ${MAX_ROWS.toLocaleString()} rows were analysed without loading the full file into memory.`);
         if (!plotProfile) warnings.push("No predominantly numeric column was found, so a signal chart cannot be drawn.");
         warnings.push("RUL inference was not run because this file does not contain enough thesis-model features.");
         setAnalysis({
@@ -354,7 +389,7 @@ export default function RULPrototype() {
       const schemaFitness = Object.keys(matched).filter((name) => model.features.includes(name)).length / model.features.length;
       const inputFitness = Math.round((schemaFitness * 0.45 + completeness * 0.35 + rangeFitness * 0.2) * 100);
       const warnings: string[] = [];
-      if (matrix.length - 1 > MAX_ROWS) warnings.push(`Only the first ${MAX_ROWS.toLocaleString()} rows were analysed.`);
+      if (sampled) warnings.push(`This large file was read in chunks; the first ${MAX_ROWS.toLocaleString()} rows were analysed without loading the full file into memory.`);
       if (schemaFitness < 1) warnings.push("Missing model features were filled with training-data medians; interpret the estimate cautiously.");
       if (rangeFitness < 0.9) warnings.push("Some measurements fall outside the training-data range.");
       if (duplicates) warnings.push(`${duplicates} duplicate cycle indices were detected.`);
@@ -486,7 +521,7 @@ export default function RULPrototype() {
 
       <section className="rul-hero">
         <div className="rul-hero-copy">
-          <div className="rul-hero-lockup"><img src="/battery-rul-lab-logo.png" alt="Battery RUL Lab emblem"/><span>100,000-row analysis capacity</span></div>
+          <div className="rul-hero-lockup"><img src="/battery-rul-lab-logo.png" alt="Battery RUL Lab emblem"/><span>512 GB file acceptance · 100,000-row analysis</span></div>
           <p className="rul-kicker">INTERACTIVE RESEARCH PROTOTYPE · NAYEEM FAISAL</p>
           <h1>Turn battery-cycle CSV data into a <em>RUL health report.</em></h1>
           <p>Upload any CSV for structural and signal analysis. Files matching the thesis battery schema also receive RUL estimation, degradation visualisation, maintenance-risk classification, and exportable results.</p>
@@ -514,7 +549,7 @@ export default function RULPrototype() {
         >
           <input ref={inputRef} type="file" accept=".csv,text/csv" onChange={onFileChange} hidden />
           <div className="rul-upload-icon" aria-hidden="true"><i/><i/><i/></div>
-          <div><strong>{working ? "Analysing the battery record…" : "Drop your battery CSV here"}</strong><p>or choose a file · maximum 20 MB · up to 100,000 rows</p></div>
+          <div><strong>{working ? "Reading and analysing the dataset…" : "Drop your CSV dataset here"}</strong><p>or choose a file · maximum 512 GB · chunked analysis of up to 100,000 rows</p></div>
           <button type="button" disabled={!model || working}>{working ? "Working" : "Choose CSV"}</button>
         </div>
         {error && <p className="rul-error" role="alert">{error}</p>}
