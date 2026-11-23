@@ -69,7 +69,7 @@ export default function ThesisBookReader() {
         setLoading(false);
       } catch {
         if (active) {
-          setError("The page reader could not start. The complete PDF is still available above.");
+          setError("Der Seitenleser konnte nicht gestartet werden. Die vollständige PDF-Datei ist weiterhin oben verfügbar.");
           setLoading(false);
         }
       }
@@ -181,8 +181,8 @@ export default function ThesisBookReader() {
   }, [open, turn]);
 
   const pageLabel = singlePage || page === 1 || page === totalPages
-    ? `Page ${page} of ${totalPages}`
-    : `Pages ${page}-${Math.min(page + 1, totalPages)} of ${totalPages}`;
+    ? `Seite ${page} von ${totalPages}`
+    : `Seiten ${page}–${Math.min(page + 1, totalPages)} von ${totalPages}`;
 
   const jumpToPage = (value: number) => {
     const safePage = Math.min(totalPages, Math.max(1, value));
@@ -196,31 +196,31 @@ export default function ThesisBookReader() {
   return (
     <div className={`book-reader ${open ? "is-open" : "is-closed"}`} ref={readerStage}>
       {!open ? (
-        <button className="book-closed" type="button" onClick={() => setOpen(true)} aria-label="Open the thesis book">
+        <button className="book-closed" type="button" onClick={() => setOpen(true)} aria-label="Thesis-Buch öffnen">
           <span className="book-cover-spine" aria-hidden="true" />
-          <img src="/thesis-book-cover.png" alt="White hardcover of Nayeem Faisal's bachelor thesis" />
-          <span className="book-open-cue"><b>OPEN THE BOOK</b><small>Interactive 87-page print-layout edition</small></span>
+          <img src="/thesis-book-cover.png" alt="Weißer Hardcoverband der Bachelorarbeit von Nayeem Faisal" />
+          <span className="book-open-cue"><b>BUCH ÖFFNEN</b><small>Interaktive 87-seitige Druckfassung</small></span>
         </button>
       ) : (
         <>
           <div className="book-toolbar">
             <div>
-              <button type="button" onClick={() => setOpen(false)} aria-label="Close the book">Close book</button>
-              <button type="button" onClick={enterFullscreen}>Full screen</button>
+              <button type="button" onClick={() => setOpen(false)} aria-label="Buch schließen">Buch schließen</button>
+              <button type="button" onClick={enterFullscreen}>Vollbild</button>
             </div>
             <p aria-live="polite">{pageLabel}</p>
             <div>
-              <button type="button" onClick={() => turn("previous")} disabled={page === 1} aria-label="Previous page">← Previous</button>
-              <button type="button" onClick={() => turn("next")} disabled={page >= totalPages} aria-label="Next page">Next →</button>
+              <button type="button" onClick={() => turn("previous")} disabled={page === 1} aria-label="Vorherige Seite">← Zurück</button>
+              <button type="button" onClick={() => turn("next")} disabled={page >= totalPages} aria-label="Nächste Seite">Weiter →</button>
             </div>
           </div>
 
           <div className={`book-spread ${flipDirection ? `is-flipping-${flipDirection}` : ""}`}>
-            {loading && <div className="book-status">Preparing the book…</div>}
+            {loading && <div className="book-status">Buch wird vorbereitet …</div>}
             {error && <div className="book-status is-error">{error}</div>}
-            {!singlePage && <div className={`book-page book-page-left ${page === 1 ? "is-blank" : ""}`}><canvas ref={leftCanvas} role="img" aria-label={page === 1 ? "Inside front cover" : `Thesis page ${page}`} /></div>}
+            {!singlePage && <div className={`book-page book-page-left ${page === 1 ? "is-blank" : ""}`}><canvas ref={leftCanvas} role="img" aria-label={page === 1 ? "Innenseite des vorderen Buchdeckels" : `Thesis-Seite ${page}`} /></div>}
             <div className="book-gutter" aria-hidden="true" />
-            <div className="book-page book-page-right"><canvas ref={rightCanvas} role="img" aria-label={`Thesis page ${singlePage ? page : page === 1 ? 1 : Math.min(page + 1, totalPages)}`} /></div>
+            <div className="book-page book-page-right"><canvas ref={rightCanvas} role="img" aria-label={`Thesis-Seite ${singlePage ? page : page === 1 ? 1 : Math.min(page + 1, totalPages)}`} /></div>
           </div>
 
           <div className="book-progress">
@@ -231,11 +231,11 @@ export default function ThesisBookReader() {
               max={totalPages}
               value={page}
               onChange={(event) => jumpToPage(Number(event.target.value))}
-              aria-label="Jump to a thesis page"
+              aria-label="Zu einer Thesis-Seite springen"
             />
             <span>{String(totalPages).padStart(2, "0")}</span>
           </div>
-          <p className="book-help">Use the controls, slider, or keyboard arrow keys to turn pages.</p>
+          <p className="book-help">Verwenden Sie die Schaltflächen, den Regler oder die Pfeiltasten, um umzublättern.</p>
         </>
       )}
     </div>

@@ -527,14 +527,14 @@ export default function RULPrototype() {
   return (
     <main className="rul-lab" lang="de">
       <header className="rul-nav">
-        <a className="rul-brand" href="/thesis/prototype"><img src="/battery-rul-lab-logo.png" alt=""/><span><b>BATTERY RUL LAB</b><small>Forschungsprototyp von Nayeem Faisal</small></span></a>
+        <a className="rul-brand" href="/thesis/prototype"><img src="/battery-rul-lab-logo.png" alt=""/><span><b>BATTERIE-RUL-LABOR</b><small>Forschungsprototyp von Nayeem Faisal</small></span></a>
         <nav aria-label="Navigation des Prototyps"><a href="#analyser">Analysator</a><a href="#guide">Benutzerhandbuch</a><a href="#method">Methode</a><a href="#limits">Grenzen</a></nav>
         <a className="rul-back" href="/thesis">Thesis-Startseite</a>
       </header>
 
       <section className="rul-hero">
         <div className="rul-hero-copy">
-          <div className="rul-hero-lockup"><img src="/battery-rul-lab-logo.png" alt="Emblem des Battery RUL Lab"/><span>Bis zu 512 GB Dateigröße · Analyse von 100.000 Zeilen</span></div>
+          <div className="rul-hero-lockup"><img src="/battery-rul-lab-logo.png" alt="Emblem des Batterie-RUL-Labors"/><span>Bis zu 512 GB Dateigröße · Analyse von 100.000 Zeilen</span></div>
           <p className="rul-kicker">INTERAKTIVER FORSCHUNGSPROTOTYP · NAYEEM FAISAL</p>
           <h1>Batteriezyklusdaten als <em>RUL-Zustandsbericht.</em></h1>
           <p>Laden Sie eine beliebige CSV-Datei zur Struktur- und Signalanalyse hoch. Dateien, die dem Batterieschema der Thesis entsprechen, erhalten zusätzlich eine RUL-Schätzung, eine Visualisierung der Degradation, eine Wartungsrisikoklasse und exportierbare Ergebnisse.</p>
@@ -662,7 +662,7 @@ export default function RULPrototype() {
 
       <section className="rul-limits" id="limits"><div><p className="rul-kicker">VERANTWORTUNGSVOLLE NUTZUNG</p><h2>Forschungsprototyp – kein zertifiziertes Batteriemanagementsystem.</h2></div><div><p>Die Schätzung eignet sich für Demonstrationen, explorative Analysen und wissenschaftliche Diskussionen. Sie reicht nicht für sicherheitskritische Austauschentscheidungen, Garantieentscheidungen, medizinische Systeme, Luftfahrt, Fahrzeuge oder industrielle Steuerungen aus.</p><ul><li>Validieren Sie das Modell mit unabhängigen Batterien und Zellchemien.</li><li>Führen Sie vor einem Einsatz gerätebezogene oder chronologische Tests durch.</li><li>Kombinieren Sie Prognosen mit physischer Inspektion und BMS-Warnungen.</li><li>Überwachen Sie Unsicherheit, Sensordrift und Eingaben außerhalb der Trainingsverteilung.</li></ul></div></section>
 
-      <footer className="rul-footer"><a href="/thesis">NF / THESIS 2026</a><p>Batterie-RUL-Forschungsprototyp von Nayeem Faisal</p><a href="#analyser">Weitere CSV analysieren</a></footer>
+      <footer className="rul-footer"><a href="/thesis">NF / BACHELORARBEIT 2026</a><p>Batterie-RUL-Forschungsprototyp von Nayeem Faisal</p><a href="#analyser">Weitere CSV analysieren</a></footer>
     </main>
   );
 }

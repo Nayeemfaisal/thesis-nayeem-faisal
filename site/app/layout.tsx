@@ -14,19 +14,19 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nayeemfaisal.com"),
-  title: "Nayeem Faisal — Data, Intelligence & Ideas",
-  description: "Portfolio of Nayeem Faisal, an International Information Systems student exploring software development, data engineering, artificial intelligence and research.",
+  title: "Nayeem Faisal – Daten, Intelligenz und Ideen",
+  description: "Portfolio von Nayeem Faisal, Student der Internationalen Wirtschaftsinformatik mit Schwerpunkten in Softwareentwicklung, Datenengineering, künstlicher Intelligenz und Forschung.",
   openGraph: {
-    title: "Nayeem Faisal — Connecting data, intelligence, and ideas.",
-    description: "Software development, data engineering, artificial intelligence and research.",
+    title: "Nayeem Faisal – Daten, Intelligenz und Ideen verbinden.",
+    description: "Softwareentwicklung, Datenengineering, künstliche Intelligenz und Forschung.",
     type: "website",
     url: "/",
-    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Nayeem Faisal — data, intelligence, and systems" }],
+    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Nayeem Faisal – Daten, Intelligenz und Systeme" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nayeem Faisal — Connecting data, intelligence, and ideas.",
-    description: "Software development, data engineering, artificial intelligence and research.",
+    title: "Nayeem Faisal – Daten, Intelligenz und Ideen verbinden.",
+    description: "Softwareentwicklung, Datenengineering, künstliche Intelligenz und Forschung.",
     images: ["/og.jpg"],
   },
   icons: {
@@ -42,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="de">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

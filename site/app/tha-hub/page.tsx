@@ -3,18 +3,18 @@
 import { FormEvent, useMemo, useState } from "react";
 
 const verifiedAnswers = [
-  { tag: "Exams", question: "Where can I find official examination dates?", answer: "Use the THA examination schedule and your faculty portal as the authoritative source. Always confirm changes in the official system.", source: "THA study portal" },
-  { tag: "Study", question: "How should a student contact a professor?", answer: "Use the professor’s official THA contact details, include your programme and module, and write a concise question with the relevant context.", source: "Professor-reviewed guidance" },
-  { tag: "Support", question: "Can this hub make academic decisions?", answer: "No. The prototype organises information and routes questions. Final academic and administrative decisions remain with authorised THA staff.", source: "Prototype governance rule" },
+  { tag: "Prüfungen", question: "Wo finde ich die offiziellen Prüfungstermine?", answer: "Verwenden Sie den THA-Prüfungsplan und das Portal Ihrer Fakultät als verbindliche Quellen. Prüfen Sie Änderungen immer im offiziellen System.", source: "THA-Studienportal" },
+  { tag: "Studium", question: "Wie sollte eine Studentin oder ein Student eine Professorin oder einen Professor kontaktieren?", answer: "Verwenden Sie die offiziellen THA-Kontaktdaten, nennen Sie Studiengang und Modul und formulieren Sie eine kurze Frage mit dem erforderlichen Kontext.", source: "Von Lehrenden geprüfter Hinweis" },
+  { tag: "Unterstützung", question: "Kann dieser Hub akademische Entscheidungen treffen?", answer: "Nein. Der Prototyp organisiert Informationen und leitet Fragen weiter. Endgültige akademische und administrative Entscheidungen verbleiben bei autorisierten THA-Mitarbeitenden.", source: "Governance-Regel des Prototyps" },
 ];
 
-type QueueItem = { id: number; question: string; status: "Awaiting review" | "Approved" };
+type QueueItem = { id: number; question: string; status: "Prüfung ausstehend" | "Freigegeben" };
 
 export default function ThaHub() {
   const [query, setQuery] = useState("");
   const [question, setQuestion] = useState("");
   const [queue, setQueue] = useState<QueueItem[]>([
-    { id: 1, question: "Can I receive an answer when the examination plan changes?", status: "Awaiting review" },
+    { id: 1, question: "Kann ich eine Antwort erhalten, wenn sich der Prüfungsplan ändert?", status: "Prüfung ausstehend" },
   ]);
   const [mode, setMode] = useState<"student" | "professor">("student");
   const [notice, setNotice] = useState("");
@@ -27,52 +27,52 @@ export default function ThaHub() {
     event.preventDefault();
     const clean = question.trim();
     if (!clean) return;
-    setQueue((items) => [...items, { id: Date.now(), question: clean, status: "Awaiting review" }]);
+    setQueue((items) => [...items, { id: Date.now(), question: clean, status: "Prüfung ausstehend" }]);
     setQuestion("");
-    setNotice("Question added to the professor-review queue.");
+    setNotice("Die Frage wurde der Prüfwarteschlange hinzugefügt.");
   }
 
   function approve(id: number) {
-    setQueue((items) => items.map((item) => item.id === id ? { ...item, status: "Approved" } : item));
+    setQueue((items) => items.map((item) => item.id === id ? { ...item, status: "Freigegeben" } : item));
   }
 
   return (
     <main className="hubShell">
       <div className="hubGlow hubGlowOne"/><div className="hubGlow hubGlowTwo"/>
       <header className="hubTopbar">
-        <a href="/" className="hubBrand"><span>NF</span><strong>THA Q&amp;A HUB</strong><i>CONCEPT / LIVE DEMO</i></a>
-        <nav aria-label="Hub navigation"><a href="#knowledge">Knowledge</a><a href="#workflow">Workflow</a><a href="/">Battery thesis ↗</a></nav>
+        <a href="/" className="hubBrand"><span>NF</span><strong>THA FRAGEN-UND-ANTWORTEN-HUB</strong><i>KONZEPT / VORFÜHRUNG</i></a>
+        <nav aria-label="Navigation des Hubs"><a href="#knowledge">Wissen</a><a href="#workflow">Ablauf</a><a href="/thesis">Batterie-Bachelorarbeit</a></nav>
       </header>
 
       <section className="hubHero">
         <div>
-          <p className="hubKicker"><span/> STUDENT SUPPORT · HUMAN REVIEW · SOURCE FIRST</p>
-          <h1>One place to ask.<br/><em>One source of truth.</em></h1>
-          <p className="hubLead">A working software prototype for finding verified university guidance, submitting unanswered questions, and keeping professors in control of every published response.</p>
-          <div className="hubActions"><a href="#demo">Try the live demo</a><a href="#workflow">See how it works</a></div>
+          <p className="hubKicker"><span/> STUDIERENDENHILFE · MENSCHLICHE PRÜFUNG · QUELLEN ZUERST</p>
+          <h1>Ein Ort für Fragen.<br/><em>Eine verlässliche Wissensquelle.</em></h1>
+          <p className="hubLead">Ein funktionsfähiger Softwareprototyp zum Finden geprüfter Hochschulhinweise, Einreichen unbeantworteter Fragen und zur Kontrolle aller veröffentlichten Antworten durch Lehrende.</p>
+          <div className="hubActions"><a href="#demo">Vorführung testen</a><a href="#workflow">Funktionsweise ansehen</a></div>
         </div>
         <aside className="hubPulseCard">
-          <div className="hubPulseTop"><span>KNOWLEDGE SIGNAL</span><b>LIVE</b></div>
-          <div className="hubOrb"><i/><span>3</span><small>verified answers</small></div>
-          <div className="hubMiniStats"><span><b>{queue.filter(i=>i.status === "Awaiting review").length}</b> awaiting review</span><span><b>{queue.filter(i=>i.status === "Approved").length}</b> approved</span></div>
+          <div className="hubPulseTop"><span>WISSENSSIGNAL</span><b>AKTIV</b></div>
+          <div className="hubOrb"><i/><span>3</span><small>geprüfte Antworten</small></div>
+          <div className="hubMiniStats"><span><b>{queue.filter(i=>i.status === "Prüfung ausstehend").length}</b> ausstehend</span><span><b>{queue.filter(i=>i.status === "Freigegeben").length}</b> freigegeben</span></div>
         </aside>
       </section>
 
       <section className="hubDemo" id="demo">
-        <div className="hubDemoHead"><div><p>INTERACTIVE PROTOTYPE</p><h2>Test the workflow.</h2></div><div className="hubMode" role="group" aria-label="Choose demo role"><button className={mode === "student" ? "active" : ""} onClick={()=>setMode("student")}>Student view</button><button className={mode === "professor" ? "active" : ""} onClick={()=>setMode("professor")}>Professor review</button></div></div>
+        <div className="hubDemoHead"><div><p>INTERAKTIVER PROTOTYP</p><h2>Arbeitsablauf testen.</h2></div><div className="hubMode" role="group" aria-label="Rolle für die Demo auswählen"><button className={mode === "student" ? "active" : ""} onClick={()=>setMode("student")}>Studierendenansicht</button><button className={mode === "professor" ? "active" : ""} onClick={()=>setMode("professor")}>Prüfansicht</button></div></div>
         {mode === "student" ? <div className="hubStudent">
-          <section className="hubSearch" id="knowledge"><label htmlFor="hub-search">Search verified knowledge</label><div><input id="hub-search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Try ‘exam’, ‘contact’ or ‘decision’"/><kbd>{results.length} matches</kbd></div></section>
+          <section className="hubSearch" id="knowledge"><label htmlFor="hub-search">Geprüftes Wissen durchsuchen</label><div><input id="hub-search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Zum Beispiel ‚Prüfung‘, ‚Kontakt‘ oder ‚Entscheidung‘"/><kbd>{results.length} Treffer</kbd></div></section>
           <div className="hubAnswerGrid">{results.map((item)=><article key={item.question}><span>{item.tag}</span><h3>{item.question}</h3><p>{item.answer}</p><small>✓ {item.source}</small></article>)}</div>
-          <form className="hubAsk" onSubmit={submitQuestion}><div><span>NOT FOUND?</span><h3>Send a question for human review.</h3><p>The demo adds your question to the professor queue on this device. It does not send personal data or contact THA.</p></div><div><textarea value={question} onChange={e=>setQuestion(e.target.value)} placeholder="Write a clear university question…" aria-label="Question for review"/><button type="submit">Add to review queue →</button>{notice && <output>{notice}</output>}</div></form>
+          <form className="hubAsk" onSubmit={submitQuestion}><div><span>NICHT GEFUNDEN?</span><h3>Frage zur menschlichen Prüfung einreichen.</h3><p>Die Demo fügt Ihre Frage auf diesem Gerät der Prüfwarteschlange hinzu. Sie sendet keine persönlichen Daten und kontaktiert die THA nicht.</p></div><div><textarea value={question} onChange={e=>setQuestion(e.target.value)} placeholder="Formulieren Sie eine klare Hochschulfrage …" aria-label="Frage zur Prüfung"/><button type="submit">Zur Prüfwarteschlange hinzufügen</button>{notice && <output>{notice}</output>}</div></form>
         </div> : <div className="hubQueue">
-          <div className="hubQueueHead"><span>REVIEW QUEUE</span><p>Answers remain unpublished until a professor or authorised staff member approves them.</p></div>
-          {queue.length ? queue.map(item=><article key={item.id}><div><span className={item.status === "Approved" ? "approved" : "waiting"}>{item.status}</span><h3>{item.question}</h3><p>Suggested action: verify against an official THA source, edit the response, then approve.</p></div>{item.status === "Awaiting review" ? <button onClick={()=>approve(item.id)}>Mark reviewed</button> : <b>✓ Reviewed</b>}</article>) : <p>No questions in the queue.</p>}
+          <div className="hubQueueHead"><span>PRÜFWARTESCHLANGE</span><p>Antworten bleiben unveröffentlicht, bis sie von einer Professorin, einem Professor oder autorisierten Mitarbeitenden freigegeben werden.</p></div>
+          {queue.length ? queue.map(item=><article key={item.id}><div><span className={item.status === "Freigegeben" ? "approved" : "waiting"}>{item.status}</span><h3>{item.question}</h3><p>Empfohlene Aktion: mit einer offiziellen THA-Quelle abgleichen, Antwort bearbeiten und anschließend freigeben.</p></div>{item.status === "Prüfung ausstehend" ? <button onClick={()=>approve(item.id)}>Als geprüft markieren</button> : <b>✓ Geprüft</b>}</article>) : <p>Keine Fragen in der Warteschlange.</p>}
         </div>}
       </section>
 
-      <section className="hubWorkflow" id="workflow"><p>CONTROLLED INFORMATION FLOW</p><h2>Fast for students.<br/>Accountable for staff.</h2><div>{[["01","Search","Students check a concise, verified knowledge base first."],["02","Ask","Unanswered questions enter a transparent review queue."],["03","Review","A professor validates the source and edits the response."],["04","Publish","Only approved guidance becomes reusable knowledge."]].map(([n,t,c])=><article key={n}><b>{n}</b><span>{t}</span><p>{c}</p></article>)}</div></section>
-      <section className="hubBoundary"><b>PROTOTYPE STATUS</b><p>Designed and developed by Nayeem Faisal as an independent software concept. This demonstration is not an official THA system, does not use live university data, and does not replace authorised academic advice.</p><a href="https://www.tha.de/" target="_blank" rel="noreferrer">Visit official THA website ↗</a></section>
-      <footer className="hubFooter"><span>THA Q&amp;A HUB / NAYEEM FAISAL</span><a href="/">Return to portfolio →</a></footer>
+      <section className="hubWorkflow" id="workflow"><p>KONTROLLIERTER INFORMATIONSFLUSS</p><h2>Schnell für Studierende.<br/>Nachvollziehbar für Mitarbeitende.</h2><div>{[["01","Suchen","Studierende prüfen zunächst eine kompakte, verifizierte Wissensbasis."],["02","Fragen","Unbeantwortete Fragen gelangen in eine transparente Prüfwarteschlange."],["03","Prüfen","Eine Lehrperson validiert die Quelle und bearbeitet die Antwort."],["04","Veröffentlichen","Nur freigegebene Hinweise werden zu wiederverwendbarem Wissen."]].map(([n,t,c])=><article key={n}><b>{n}</b><span>{t}</span><p>{c}</p></article>)}</div></section>
+      <section className="hubBoundary"><b>STATUS DES PROTOTYPS</b><p>Von Nayeem Faisal als unabhängiges Softwarekonzept gestaltet und entwickelt. Diese Demonstration ist kein offizielles THA-System, verwendet keine Live-Hochschuldaten und ersetzt keine autorisierte akademische Beratung.</p><a href="https://www.tha.de/" target="_blank" rel="noreferrer">Offizielle THA-Website besuchen</a></section>
+      <footer className="hubFooter"><span>THA Q&amp;A HUB / NAYEEM FAISAL</span><a href="/">Zurück zum Portfolio</a></footer>
     </main>
   );
 }

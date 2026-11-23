@@ -2,17 +2,17 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "THA Q&A Hub — Nayeem Faisal",
-  description: "Interactive prototype for student questions, verified university answers and professor-reviewed publishing.",
+  description: "Interaktiver Prototyp für Fragen von Studierenden, geprüfte Hochschulantworten und kontrollierte Veröffentlichung.",
   openGraph: {
-    title: "THA Q&A Hub — Interactive Prototype",
-    description: "A working student-support software concept by Nayeem Faisal.",
+    title: "THA Q&A Hub – Interaktiver Prototyp",
+    description: "Ein funktionsfähiges Softwarekonzept zur Unterstützung von Studierenden von Nayeem Faisal.",
     url: "/tha-hub",
     images: [],
   },
   twitter: {
     card: "summary",
-    title: "THA Q&A Hub — Interactive Prototype",
-    description: "A working student-support software concept by Nayeem Faisal.",
+    title: "THA Q&A Hub – Interaktiver Prototyp",
+    description: "Ein funktionsfähiges Softwarekonzept zur Unterstützung von Studierenden von Nayeem Faisal.",
     images: [],
   },
 };

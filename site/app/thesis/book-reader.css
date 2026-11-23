@@ -103,7 +103,7 @@
 }
 
 .book-closed::after {
-  content: "HARDCOVER EDITION";
+  content: "HARDCOVER-AUSGABE";
   position: absolute;
   z-index: 6;
   left: 50%;

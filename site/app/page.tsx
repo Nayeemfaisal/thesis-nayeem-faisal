@@ -5,10 +5,10 @@ import PortfolioScene from "./PortfolioScene";
 import AskNayeem from "./AskNayeem";
 
 const interests = [
-  { label: "Software development", href: "/tha-hub", detail: "Explore the working THA Q&A software prototype" },
-  { label: "Data engineering", href: "/thesis#research", detail: "Explore the thesis data and validation workflow" },
-  { label: "Artificial intelligence", href: "/thesis#findings", detail: "See the LSTM and XGBoost model comparison" },
-  { label: "Research", href: "/thesis#method", detail: "Read the evidence and reproducibility method" },
+  { label: "Softwareentwicklung", href: "/tha-hub", detail: "Den funktionsfähigen THA-Q&A-Softwareprototyp erkunden" },
+  { label: "Datenengineering", href: "/thesis#research", detail: "Daten- und Validierungsablauf der Thesis erkunden" },
+  { label: "Künstliche Intelligenz", href: "/thesis#findings", detail: "Vergleich der LSTM- und XGBoost-Modelle ansehen" },
+  { label: "Forschung", href: "/thesis#research", detail: "Nachweis- und Reproduzierbarkeitsmethode lesen" },
 ];
 const linkedin = "https://de.linkedin.com/in/nayeem-faisal-721619296";
 const github = "https://github.com/Nayeemfaisal";
@@ -65,58 +65,58 @@ export default function Home() {
   return <main className="nf-site">
     <div className="nf-progress" aria-hidden="true" />
     <div className="nf-cursorAura" aria-hidden="true" />
-    <div className={`nf-loader ${ready ? "is-ready" : ""}`} aria-hidden={ready}><img src="/nayeem-logo.png" alt=""/><i/><small>Preparing the experience</small></div>
+    <div className={`nf-loader ${ready ? "is-ready" : ""}`} aria-hidden={ready}><img src="/nayeem-logo.png" alt=""/><i/><small>Website wird vorbereitet</small></div>
     <header className="nf-nav">
-      <a href="#top" className="nf-logo" aria-label="Nayeem Faisal home"><img src="/nayeem-logo.png" alt=""/><span><b>NAYEEM</b><small>FAISAL</small></span></a>
-      <nav aria-label="Primary navigation"><a href="#about">About</a><a href="#work">Work</a><a href="#capabilities">Capabilities</a><a href="/internship">Experience</a></nav>
-      <a href="#ask" className="nf-navContact">Ask Nayeem ↗</a>
+      <a href="#top" className="nf-logo" aria-label="Startseite von Nayeem Faisal"><img src="/nayeem-logo.png" alt=""/><span><b>NAYEEM</b><small>FAISAL</small></span></a>
+      <nav aria-label="Hauptnavigation"><a href="#about">Über mich</a><a href="#work">Projekte</a><a href="#capabilities">Kompetenzen</a><a href="/internship">Erfahrung</a></nav>
+      <a href="#ask" className="nf-navContact">Nayeem fragen</a>
     </header>
 
     <section className="nf-hero" id="top">
       <PortfolioScene onReady={sceneReady}/>
-      <div className="nf-heroMeta"><span>PORTFOLIO / 2026</span><span>AUGSBURG, GERMANY</span></div>
-      <div className="nf-heroCopy"><p>Nayeem Faisal</p><h1><span>Connecting data,</span><br/><em>intelligence,</em><br/><span>and ideas.</span></h1><a href="#work">Explore my work <span>↓</span></a></div>
-      <div className="nf-heroMark" aria-hidden="true"><img src="/nayeem-logo.png" alt=""/><span>PERSONAL MARK</span><small>DATA · INTELLIGENCE · SYSTEMS</small></div>
-      <p className="nf-scrollNote">SCROLL TO FORM THE SYSTEM</p>
+      <div className="nf-heroMeta"><span>PORTFOLIO / 2026</span><span>AUGSBURG, DEUTSCHLAND</span></div>
+      <div className="nf-heroCopy"><p>Nayeem Faisal</p><h1><span>Daten,</span><br/><em>Intelligenz</em><br/><span>und Ideen verbinden.</span></h1><a href="#work">Meine Projekte entdecken <span>↓</span></a></div>
+      <div className="nf-heroMark" aria-hidden="true"><img src="/nayeem-logo.png" alt=""/><span>PERSÖNLICHES ZEICHEN</span><small>DATEN · INTELLIGENZ · SYSTEME</small></div>
+      <p className="nf-scrollNote">SCROLLEN, UM DAS SYSTEM ZU FORMEN</p>
     </section>
 
     <section className="nf-about nf-reveal" id="about">
-      <p className="nf-label">01 / ABOUT</p>
-      <div><h2>An emerging technology professional working where systems, information and people meet.</h2><p>I study International Information Systems at Technische Hochschule Augsburg. My interests span software development, data pipelines, artificial intelligence and research—with a focus on turning complex information into useful, understandable systems.</p></div>
+      <p className="nf-label">01 / ÜBER MICH</p>
+      <div><h2>Ein angehender Technologieexperte an der Schnittstelle von Systemen, Informationen und Menschen.</h2><p>Ich studiere Internationale Wirtschaftsinformatik an der Technischen Hochschule Augsburg. Meine Interessen umfassen Softwareentwicklung, Datenpipelines, künstliche Intelligenz und Forschung – mit dem Ziel, komplexe Informationen in nützliche und verständliche Systeme zu überführen.</p></div>
     </section>
 
-    <div className="nf-marquee" aria-hidden="true"><div><span>DATA INTO DIRECTION</span><i>✦</i><span>RESEARCH INTO EVIDENCE</span><i>✦</i><span>IDEAS INTO SYSTEMS</span><i>✦</i><span>DATA INTO DIRECTION</span><i>✦</i><span>RESEARCH INTO EVIDENCE</span><i>✦</i><span>IDEAS INTO SYSTEMS</span><i>✦</i></div></div>
+    <div className="nf-marquee" aria-hidden="true"><div><span>DATEN GEBEN RICHTUNG</span><i>✦</i><span>FORSCHUNG SCHAFFT NACHWEISE</span><i>✦</i><span>IDEEN WERDEN SYSTEME</span><i>✦</i><span>DATEN GEBEN RICHTUNG</span><i>✦</i><span>FORSCHUNG SCHAFFT NACHWEISE</span><i>✦</i><span>IDEEN WERDEN SYSTEME</span><i>✦</i></div></div>
 
     <section className="nf-work" id="work">
-      <header className="nf-reveal"><p className="nf-label">02 / SELECTED WORK</p><h2>Ideas made<br/>operational.</h2></header>
+      <header className="nf-reveal"><p className="nf-label">02 / AUSGEWÄHLTE PROJEKTE</p><h2>Ideen werden<br/>anwendbar.</h2></header>
       <article className="nf-project nf-projectBlue nf-reveal" data-link="available">
-        <div className="nf-projectIndex">01</div><div className="nf-projectCopy"><p>ENERGY FORECASTING · BACHELOR&apos;S THESIS</p><h3>Lithium Battery RUL Forecasting</h3><span>Original research combining real battery data, a 100,000-row synthetic dataset, exploratory analysis, and comparative LSTM and XGBoost modelling.</span><a href="/thesis">Explore the final thesis ↗</a></div>
-        <div className="nf-projectVisual" aria-hidden="true"><i/><i/><i/><b>100k</b><small>SYNTHETIC ROWS / RUL RESEARCH</small></div>
+        <div className="nf-projectIndex">01</div><div className="nf-projectCopy"><p>ENERGIEPROGNOSE · BACHELORARBEIT</p><h3>RUL-Prognose für Lithium-Batterien</h3><span>Eigenständige Forschung mit realen Batteriedaten, einem synthetischen Datensatz mit 100.000 Zeilen, explorativer Analyse sowie vergleichender LSTM- und XGBoost-Modellierung.</span><a href="/thesis">Finale Thesis erkunden</a></div>
+        <div className="nf-projectVisual" aria-hidden="true"><i/><i/><i/><b>100k</b><small>SYNTHETISCHE ZEILEN / RUL-FORSCHUNG</small></div>
       </article>
       <article className="nf-project nf-projectLight nf-reveal">
-        <div className="nf-projectIndex">02</div><div className="nf-projectCopy"><p>PRODUCT CONCEPT · TIME TRACKING</p><h3>TuTime</h3><span>A tutor time-tracking project exploring clear activity records, usable workflows and reliable information structure. Further public documentation is being prepared.</span><span className="nf-unavailable">PUBLIC LINK — COMING SOON</span></div>
-        <div className="nf-projectVisual nf-time" aria-hidden="true"><i/><i/><i/><b>08:42</b><small>TUTOR SESSION / ACTIVE</small></div>
+        <div className="nf-projectIndex">02</div><div className="nf-projectCopy"><p>PRODUKTKONZEPT · ZEITERFASSUNG</p><h3>TuTime</h3><span>Ein Zeiterfassungsprojekt für Tutorien mit klaren Aktivitätsnachweisen, nutzbaren Arbeitsabläufen und einer verlässlichen Informationsstruktur. Weitere öffentliche Dokumentation wird vorbereitet.</span><span className="nf-unavailable">ÖFFENTLICHER LINK – DEMNÄCHST</span></div>
+        <div className="nf-projectVisual nf-time" aria-hidden="true"><i/><i/><i/><b>08:42</b><small>TUTORIUM / AKTIV</small></div>
       </article>
       <article className="nf-project nf-projectDark nf-reveal" data-link="available">
-        <div className="nf-projectIndex">03</div><div className="nf-projectCopy"><p>WORKING SOFTWARE · KNOWLEDGE INTERFACE</p><h3>THA Q&amp;A Hub</h3><span>An independent student-support prototype that explores verified knowledge search, transparent review and human approval.</span><a href="/tha-hub">Open the working interface ↗</a></div>
-        <div className="nf-projectVisual nf-nodes" aria-hidden="true"><i/><i/><i/><i/><b>Q/A</b><small>HUMAN-IN-THE-LOOP</small></div>
+        <div className="nf-projectIndex">03</div><div className="nf-projectCopy"><p>FUNKTIONSFÄHIGE SOFTWARE · WISSENSSCHNITTSTELLE</p><h3>THA Q&amp;A Hub</h3><span>Ein unabhängiger Unterstützungsprototyp für Studierende mit geprüfter Wissenssuche, transparenter Überprüfung und menschlicher Freigabe.</span><a href="/tha-hub">Funktionsfähige Oberfläche öffnen</a></div>
+        <div className="nf-projectVisual nf-nodes" aria-hidden="true"><i/><i/><i/><i/><b>F/A</b><small>MENSCHLICHE KONTROLLE</small></div>
       </article>
     </section>
 
     <section className="nf-capabilities nf-reveal" id="capabilities">
-      <p className="nf-label">03 / INTERESTS &amp; CAPABILITIES</p>
+      <p className="nf-label">03 / INTERESSEN &amp; KOMPETENZEN</p>
       <div className="nf-capList">{interests.map((item, index)=><a href={item.href} key={item.label} aria-label={`${item.label}: ${item.detail}`}><span>0{index+1}</span><h3>{item.label}</h3><small>{item.detail}</small><i>↗</i></a>)}</div>
-      <p className="nf-capNote">I am developing these capabilities through university study, independent projects and applied research. They describe my direction—not inflated claims of mastery.</p>
+      <p className="nf-capNote">Ich entwickle diese Kompetenzen durch mein Studium, eigenständige Projekte und angewandte Forschung. Sie beschreiben meine fachliche Richtung und keine überhöhten Behauptungen vollständiger Beherrschung.</p>
     </section>
 
     <AskNayeem />
 
     <section className="nf-contact nf-reveal" id="contact">
-      <p className="nf-label">05 / CONTACT</p><h2>Let&apos;s build<br/><em><span>something</span> <span>meaningful.</span></em></h2>
-      <div className="nf-contactGrid"><div><span>CONNECT</span><a href={linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a><a href={github} target="_blank" rel="noreferrer">GitHub ↗</a></div><div><span>DIRECT</span><a className="nf-email" href={`mailto:${email}`}>{email} ↗</a></div><div><span>LOCATION</span><p>Augsburg, Germany</p><p>Open to meaningful conversations</p></div></div>
-      <a className="nf-emailCta" href={`mailto:${email}`}><span>START A CONVERSATION</span><b>↗</b></a>
-      <a className="nf-portrait" href={linkedin} target="_blank" rel="noreferrer"><img src="/nayeem-brand-portrait.webp" alt="Nayeem Faisal"/><span>VIEW PROFILE ↗</span></a>
+      <p className="nf-label">05 / KONTAKT</p><h2>Lassen Sie uns<br/><em><span>etwas</span> <span>Sinnvolles entwickeln.</span></em></h2>
+      <div className="nf-contactGrid"><div><span>VERNETZEN</span><a href={linkedin} target="_blank" rel="noreferrer">LinkedIn</a><a href={github} target="_blank" rel="noreferrer">GitHub</a></div><div><span>DIREKT</span><a className="nf-email" href={`mailto:${email}`}>{email}</a></div><div><span>STANDORT</span><p>Augsburg, Deutschland</p><p>Offen für einen fachlichen Austausch</p></div></div>
+      <a className="nf-emailCta" href={`mailto:${email}`}><span>GESPRÄCH BEGINNEN</span><b>↗</b></a>
+      <a className="nf-portrait" href={linkedin} target="_blank" rel="noreferrer"><img src="/nayeem-brand-portrait.webp" alt="Nayeem Faisal"/><span>PROFIL ANSEHEN</span></a>
     </section>
-    <footer className="nf-footer"><a href="#top" className="nf-footerBrand"><img src="/nayeem-logo.png" alt=""/>NAYEEM FAISAL</a><span>INTERNATIONAL INFORMATION SYSTEMS</span><span>© 2026</span></footer>
+    <footer className="nf-footer"><a href="#top" className="nf-footerBrand"><img src="/nayeem-logo.png" alt=""/>NAYEEM FAISAL</a><span>INTERNATIONALE WIRTSCHAFTSINFORMATIK</span><span>© 2026</span></footer>
   </main>;
 }
