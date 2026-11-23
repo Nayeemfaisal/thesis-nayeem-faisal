@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./prototype.css";
 
 export const metadata: Metadata = {
-  title: "Battery RUL Lab — Nayeem Faisal",
+  title: "Battery RUL Lab – Batterieanalyse von Nayeem Faisal",
   description:
-    "Upload lithium-ion battery cycle data and explore browser-based remaining-useful-life estimates, input quality, degradation trends, and maintenance guidance.",
+    "Lithium-Ionen-Batteriezyklusdaten lokal im Browser analysieren: RUL-Schätzung, Eingabequalität, Degradationsverlauf und Wartungshinweise.",
 };
 
 export default function PrototypeLayout({ children }: { children: React.ReactNode }) {
