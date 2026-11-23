@@ -681,6 +681,155 @@
 .rul-table-wrap tbody tr:hover {
   background: #fff4f5;
 }
+.rul-user-guide {
+  padding: 110px 7vw;
+  background: #fff;
+  color: #111927;
+}
+.rul-user-guide > header {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 8vw;
+  align-items: end;
+  margin-bottom: 58px;
+}
+.rul-user-guide h2 {
+  max-width: 820px;
+  margin: 14px 0 0;
+  font-size: clamp(42px, 5vw, 76px);
+  line-height: 0.96;
+  letter-spacing: -0.055em;
+}
+.rul-user-guide > header > p {
+  margin: 0;
+  color: #5c6777;
+  font-size: 17px;
+  line-height: 1.75;
+}
+.rul-use-case {
+  display: grid;
+  grid-template-columns: minmax(250px, 0.62fr) 1.38fr;
+  border: 1px solid #cad1da;
+}
+.rul-use-case aside {
+  padding: 34px;
+  background: #0b111a;
+  color: #fff;
+}
+.rul-use-case aside > span,
+.rul-result-key span {
+  color: #ff5263;
+  font: 750 12px var(--font-geist-mono), monospace;
+  letter-spacing: 0.1em;
+}
+.rul-use-case aside h3 {
+  margin: 55px 0 30px;
+  font-size: 31px;
+  line-height: 1.05;
+}
+.rul-use-case aside dl {
+  margin: 0 0 36px;
+}
+.rul-use-case aside dl div {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 15px;
+  padding: 14px 0;
+  border-top: 1px solid #2b3544;
+}
+.rul-use-case aside dt {
+  color: #8f9aac;
+  font-size: 13px;
+}
+.rul-use-case aside dd {
+  margin: 0;
+  font-size: 14px;
+}
+.rul-use-case aside a,
+.rul-guide-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 22px;
+  background: var(--red);
+  color: #fff;
+  font-weight: 750;
+  text-decoration: none;
+}
+.rul-use-case ol {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: guide-step;
+}
+.rul-use-case li {
+  counter-increment: guide-step;
+  min-height: 230px;
+  padding: 30px;
+  border-left: 1px solid #cad1da;
+  border-bottom: 1px solid #cad1da;
+}
+.rul-use-case li:nth-last-child(-n + 2) {
+  border-bottom: 0;
+}
+.rul-use-case li::before {
+  content: counter(guide-step, decimal-leading-zero);
+  display: block;
+  margin-bottom: 48px;
+  color: #d11730;
+  font: 750 12px var(--font-geist-mono), monospace;
+  letter-spacing: 0.08em;
+}
+.rul-use-case li b {
+  display: block;
+  font-size: 20px;
+}
+.rul-use-case li p {
+  margin: 12px 0 0;
+  color: #5c6777;
+  line-height: 1.68;
+}
+.rul-use-case code,
+.rul-result-key code {
+  padding: 2px 5px;
+  background: #f0f2f5;
+  font-family: var(--font-geist-mono), monospace;
+}
+.rul-result-key {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 44px;
+  border-top: 3px solid var(--red);
+  border-bottom: 1px solid #cad1da;
+}
+.rul-result-key > div {
+  min-height: 245px;
+  padding: 28px;
+  border-right: 1px solid #cad1da;
+}
+.rul-result-key > div:last-child {
+  border-right: 0;
+}
+.rul-result-key h3 {
+  margin: 50px 0 12px;
+  font-size: 25px;
+}
+.rul-result-key p {
+  margin: 0;
+  color: #5c6777;
+  line-height: 1.65;
+}
+.rul-guide-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 30px;
+}
+.rul-guide-actions a:last-child {
+  background: #111927;
+}
 .rul-universal {
   padding: 110px 7vw;
   background: #f2f4f7;
@@ -981,10 +1130,17 @@
     min-height: auto;
   }
   .rul-analyser > header,
+  .rul-user-guide > header,
   .rul-method > header,
   .rul-importance,
   .rul-limits {
     grid-template-columns: 1fr;
+  }
+  .rul-use-case {
+    grid-template-columns: 1fr;
+  }
+  .rul-use-case ol {
+    border-top: 1px solid #cad1da;
   }
   .rul-result-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1047,7 +1203,8 @@
   .rul-method,
   .rul-benchmarks,
   .rul-limits,
-  .rul-universal {
+  .rul-universal,
+  .rul-user-guide {
     padding: 78px 24px;
   }
   .rul-hero h1 {
@@ -1089,6 +1246,33 @@
   }
   .rul-universal-stats {
     grid-template-columns: 1fr;
+  }
+  .rul-user-guide > header {
+    grid-template-columns: 1fr;
+  }
+  .rul-use-case ol,
+  .rul-result-key {
+    grid-template-columns: 1fr;
+  }
+  .rul-use-case li,
+  .rul-use-case li:nth-last-child(-n + 2) {
+    min-height: 0;
+    border-left: 0;
+    border-bottom: 1px solid #cad1da;
+  }
+  .rul-use-case li:last-child {
+    border-bottom: 0;
+  }
+  .rul-result-key > div {
+    min-height: 0;
+    border-right: 0;
+    border-bottom: 1px solid #cad1da;
+  }
+  .rul-result-key > div:last-child {
+    border-bottom: 0;
+  }
+  .rul-guide-actions {
+    flex-direction: column;
   }
   .rul-universal-stats article {
     min-height: 150px;

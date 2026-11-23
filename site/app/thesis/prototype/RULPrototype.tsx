@@ -515,7 +515,7 @@ export default function RULPrototype() {
     <main className="rul-lab">
       <header className="rul-nav">
         <a className="rul-brand" href="/thesis/prototype"><img src="/battery-rul-lab-logo.png" alt=""/><span><b>BATTERY RUL LAB</b><small>Research prototype by Nayeem Faisal</small></span></a>
-        <nav aria-label="Prototype navigation"><a href="#analyser">Analyser</a><a href="#method">Method</a><a href="#limits">Limits</a></nav>
+        <nav aria-label="Prototype navigation"><a href="#analyser">Analyser</a><a href="#guide">User guide</a><a href="#method">Method</a><a href="#limits">Limits</a></nav>
         <a className="rul-back" href="/thesis">Thesis home</a>
       </header>
 
@@ -554,6 +554,35 @@ export default function RULPrototype() {
         </div>
         {error && <p className="rul-error" role="alert">{error}</p>}
         <div className="rul-schema"><span>Optional RUL prediction schema</span>{model?.features.map((feature) => <code key={feature}>{feature}</code>)}</div>
+      </section>
+
+      <section className="rul-user-guide" id="guide">
+        <header>
+          <div><p className="rul-kicker">THIRD-PARTY TESTING MANUAL</p><h2>From CSV file to an interpretable result.</h2></div>
+          <p>This use case is written for a professor, researcher, student, or external reviewer using the prototype for the first time. No account, installation, or data upload to a server is required.</p>
+        </header>
+        <div className="rul-use-case">
+          <aside>
+            <span>USER CASE</span>
+            <h3>Independent battery-data review</h3>
+            <dl><div><dt>Actor</dt><dd>Third-party tester</dd></div><div><dt>Input</dt><dd>One CSV dataset</dd></div><div><dt>Goal</dt><dd>Inspect quality and obtain a defensible result</dd></div><div><dt>Privacy</dt><dd>Local browser processing</dd></div></dl>
+            <a href="/data/battery-rul-sample.csv" download>Download test CSV</a>
+          </aside>
+          <ol>
+            <li><b>Prepare the file</b><p>Use a comma-separated <code>.csv</code> file with one header row. The analyser accepts files up to 512 GB and reads at most the first 100,000 data rows in chunks.</p></li>
+            <li><b>Choose the dataset</b><p>Select <strong>Choose CSV</strong> above or drag the file into the upload area. Wait until the filename and results appear; the file stays inside the browser.</p></li>
+            <li><b>Confirm the analysis mode</b><p><strong>Latest Cycle Estimate</strong> means the thesis model recognised enough battery features. <strong>Telemetry Dataset</strong> or <strong>Universal CSV Profile</strong> means the tool performed quality analysis without inventing RUL.</p></li>
+            <li><b>Read the headline result</b><p>For a compatible battery file, review estimated remaining cycles, estimated health, input fitness, latest cycle, and the maintenance-risk label.</p></li>
+            <li><b>Check the evidence</b><p>Inspect the degradation trace, recognised columns, completeness, training-range fit, duplicates, warnings, and—when a real RUL column exists—RMSE, MAE, and R².</p></li>
+            <li><b>Export and report</b><p>Download the analysed CSV and JSON report for a model-compatible file, or download the data-quality report for a general dataset. Record any warning beside the result.</p></li>
+          </ol>
+        </div>
+        <div className="rul-result-key">
+          <div><span>OUTPUT A</span><h3>RUL health report</h3><p>Appears when <code>Cycle_Index</code> and at least three recognised thesis features are present. It includes prediction, health, risk, diagnostics, charts, and exports.</p></div>
+          <div><span>OUTPUT B</span><h3>Telemetry profile</h3><p>Appears for time, voltage, current, temperature, power, capacity, or similar signals. It shows structure, ranges, completeness, and a signal preview.</p></div>
+          <div><span>OUTPUT C</span><h3>Universal profile</h3><p>Appears for any other valid CSV. It reports detected data types, unique values, missing data, numerical statistics, warnings, and an exportable report.</p></div>
+        </div>
+        <div className="rul-guide-actions"><a href="#analyser">Start a CSV test</a><a href="/data/battery-rul-sample.csv" download>Use the verified sample</a></div>
       </section>
 
       {analysis && analysis.mode === "rul" && analysis.latest && model && chart && <>

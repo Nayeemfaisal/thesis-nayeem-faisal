@@ -65,6 +65,11 @@ test("renders the battery RUL CSV prototype", async () => {
   assert.match(html, /Upload\. Inspect\. Test\./);
   assert.match(html, /UNIVERSAL CSV ANALYSER/);
   assert.match(html, /Every CSV receives a data-quality profile/);
+  assert.match(html, /THIRD-PARTY TESTING MANUAL/);
+  assert.match(html, /Independent battery-data review/);
+  assert.match(html, /OUTPUT A/);
+  assert.match(html, /OUTPUT B/);
+  assert.match(html, /OUTPUT C/);
   assert.match(html, /Drop your CSV dataset here/);
   assert.match(html, /maximum 512 GB · chunked analysis of up to 100,000 rows/);
   assert.match(html, /Processing[\s\S]*In your browser/);
